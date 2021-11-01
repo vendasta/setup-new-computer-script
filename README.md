@@ -1,6 +1,8 @@
 # Setup a New Developer Computer
 This script will help with the quick setup and installation of tools and applications for new developers at Vendasta. Tested in Mac OS 10.14, 10.15, and 11.
 
+This script hasn't been tested on M1 Macs. 
+
 You can run this script multiple times without issue. You can also run it on a partially set-up computer and it will only install what is missing.
 
 The script will create/modify `.bash_profile` and `.zprofile` with path and autocomplete sources. If you do run it on an already set-up computer, please check these files for any duplicated paths/imports/etc.
@@ -382,15 +384,16 @@ node-upgrade() {
 <details>
   <summary>Mac OS Python (Installing Pip, Invoke, Requests, lxml, pyCrypto, Virtualenv)</summary>
   
-```sh
-sudo -H /usr/bin/easy_install pip            # Installing Pip for MacOS Python
-sudo -H pip install --upgrade "pip < 21.0"   # Upgrading Pip to last supported version
-sudo -H pip install --quiet invoke
-sudo -H pip install --quiet requests
-sudo -H pip install --quiet lxml
-sudo -H pip install --quiet pyCrypto
-sudo -H pip install --quiet virtualenv
-```
+   ```sh
+   sudo -H /usr/bin/easy_install pip==20.3.4    # Installing Pip for MacOS Python
+   sudo -H pip install --upgrade "pip < 21.0"   # Upgrading Pip to last python2 supported version
+   sudo -H pip install --quiet invoke
+   sudo -H pip install --quiet requests
+   sudo -H pip install --quiet lxml
+   sudo -H pip install --quiet pyCrypto
+   sudo -H pip install --quiet virtualenv
+   ```
+    
 </details>
 
 
@@ -732,13 +735,15 @@ fi
 </details>
 
 
-# Misc
+## Modifying the script for your own company
 
-## setup-new-computer.sh future dev ideas
-- [ ] Add .bash_profile and .zprofile additions line-by-line with checking instead of all at once. This will allow incrimental updates when re-running a new script
-- [ ] Add in step to automatically auth with github?
+I strongly recomended customizing this script for your own company.  At Vendasta, we are using Python 2, Go, Angular, and Google Cloud, so remove, change and tweak to meet your needs.
 
-## Resources for writing Shell Scripts to set up Dev Macs
+
+## Resources and inspiration
+
+The following examples were helpful in building this script.
+	
 * macOS Dev Setup\
   https://github.com/nicolashery/mac-dev-setup
 * dev-setup\
