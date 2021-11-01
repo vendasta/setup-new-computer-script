@@ -70,7 +70,7 @@ compaudit | xargs chmod g-w
 <br>
 
 **Setting Up Pycharm with Mac OS Python**\
-Our projects **Do Not Work** with homebrew Python.\
+Vendasta Python projects **Do Not Work** with homebrew Python.\
 In Pycharm, when you choose a Project Interpreter, make a custom one set to `/usr/bin/python`
 
 <br>
@@ -87,6 +87,8 @@ If `pip` installation fails when using `sudo -H /usr/bin/easy_install pip` try r
 
 **Fix Python Google SDK errors**\
 If you're seeing errors like [`ImportError: cannot import name apiproxy`](https://issuetracker.google.com/issues/202171426) or other google app engine errors, try to downgrade the SDK to older version by running `gcloud components update --version 359.0.0`
+
+<br>
 
 **Installing Node versions**\
 Use nvm to install and upgrade different versions of Node. [Official docs][nvm docs] \
@@ -733,11 +735,20 @@ else
 fi
 ```
 </details>
+   
 
+<br>
+<br>
+	   
 
-## Modifying the script for your own company
+## Tips for using the script at your own company
 
-I strongly recomended customizing this script for your own company.  At Vendasta, we are using Python 2, Go, Angular, and Google Cloud, so remove, change and tweak to meet your needs.
+I have tried to make this script simple and useful. You will want to customize the installation and configuration to match the tools and services you use at your company.
+	   
+- At Vendasta, we are using Python 2, Go, Angular, and Google Cloud. You most likely do not use all of these, so remove, change, and tweak to meet your needs.
+- To customize the [welcome logo](https://github.com/vendasta/setup-new-computer-script/blob/47b7c97f21b293e143a0566cafecec2cfc69c528/setup-new-computer.sh#L74-L90) and add a bit of style, I used the handy [Text to ASCII Art Generator](https://patorjk.com/software/taag/#p=testall&f=Isometric1&t=Vendasta)
+- When you update the script, remember to update the readme "What's Installed" section too
+- Be sure to update both the `.bash_profile` and `.zprofile`
 
 
 ## Resources and inspiration
