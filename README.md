@@ -736,7 +736,6 @@ fi
 
 ## setup-new-computer.sh future dev ideas
 - [ ] Add .bash_profile and .zprofile additions line-by-line with checking instead of all at once. This will allow incrimental updates when re-running a new script
-- [ ] Seperate script to git clone major vendasta products automatically onto computer?
 - [ ] Add in step to automatically auth with github?
 
 ## Resources for writing Shell Scripts to set up Dev Macs
