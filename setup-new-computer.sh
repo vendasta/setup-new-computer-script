@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="v1.10"
+VERSION="v2.0"
 #===============================================================================
 # title           setup-new-computer.sh
 # author          jkesler@vendasta.com
@@ -625,7 +625,11 @@ echo ""
 tput bold # bold text
 read -n 1 -r -s -p $'             Press any key to to open the link in a browser...\n\n'
 open $README
-
 tput sgr0 # reset text
+
+echo ""
+echo ""
+echo "Please open a new terminal window to continue your setup steps"
+
 
 exit
