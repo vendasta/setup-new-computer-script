@@ -105,7 +105,7 @@ nvm install 12      # or 10.10.0, 8.9.1, etc
 <br>
 
 **Upgrading Node and NPM**\
-There is a handy command in your `.bash_profile` and `.zsh_profile` that will automatically upgrade to the latest version of Node LTS and NPM, plus it will re-install any global packages you have installed so you do not have to manually do it each time. Read more about it [here](https://vendasta.jira.com/wiki/spaces/RD/pages/212172883/Tips+and+Tricks#Easily-Update-Node-and-NPM-(using-NVM)-Terminal)
+There is a handy command in your `.bash_profile` and `.zsh_profile` that will automatically upgrade to the latest version of Node 14 and NPM, plus it will re-install any global packages you have installed so you do not have to manually do it each time. Read more about it [here](https://vendasta.jira.com/wiki/spaces/RD/pages/212172883/Tips+and+Tricks#Easily-Update-Node-and-NPM-(using-NVM)-Terminal)
 ```sh
 node-upgrade        # update node 14 and reinstall all global packages
 ```
