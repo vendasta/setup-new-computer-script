@@ -766,14 +766,15 @@ The following examples were helpful in building this script.
 
 
 ## Todo: Prep for M1 compatibility 
-- Install Rosetta 2 (Is it not installed by default or automatically?)
-  `/usr/sbin/softwareupdate --install-rosetta`
+
+- Install Rosetta 2 (Is it not installed by default or automatically?)\
+  `/usr/sbin/softwareupdate --install-rosetta` \
   or `sudo /usr/sbin/softwareupdate --install-rosetta agree-to-license`
 
-- Set the new M1 location of homebrew up in the path
+- Set the new M1 location of homebrew up in the path \
   `/opt/homebrew/bin`
 
-More reading:
-- https://www.wisdomgeek.com/development/installing-intel-based-packages-using-homebrew-on-the-m1-mac/
-- https://github.com/Homebrew/discussions/discussions/417
+- More reading:
+  - https://www.wisdomgeek.com/development/installing-intel-based-packages-using-homebrew-on-the-m1-mac/
+  - https://github.com/Homebrew/discussions/discussions/417
 
