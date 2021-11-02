@@ -606,14 +606,6 @@ defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 </details>
 
 <details>
-  <summary>General: Save to disk (not to iCloud) by default</summary>
-  
-```sh
-defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
-```
-</details>
-
-<details>
   <summary>General: Avoid creating .DS_Store files on network volumes</summary>
   
 ```sh
