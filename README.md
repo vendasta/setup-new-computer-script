@@ -5,6 +5,8 @@ You can run this script multiple times without issue. You can also run it on a p
 
 The script will create/modify `.bash_profile` and `.zprofile` with path and autocomplete sources. If you do run it on an already set-up computer, please check these files for any duplicated paths/imports/etc.
 
+<br>
+
 Looking to use this script at your own company? Check out the [tips for using the script at your own company](#tips-for-using-the-script-at-your-own-company) section.
 
 <br>
