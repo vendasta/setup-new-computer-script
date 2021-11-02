@@ -1,12 +1,11 @@
 # Setup a New Developer Computer
-This script will help with the quick setup and installation of tools and applications for new developers at Vendasta. Tested in Mac OS 10.14, 10.15, and 11.
-
-This script hasn't been tested on M1 Macs. 
+This script will help with the quick setup and installation of tools and applications for new developers at Vendasta. Tested in Mac OS 10.14, 10.15, and 11. This script hasn't been tested on M1 Macs. 
 
 You can run this script multiple times without issue. You can also run it on a partially set-up computer and it will only install what is missing.
 
 The script will create/modify `.bash_profile` and `.zprofile` with path and autocomplete sources. If you do run it on an already set-up computer, please check these files for any duplicated paths/imports/etc.
 
+Looking to use this script at your own company? Check out the [tips for using the script at your own company](#tips-for-using-the-script-at-your-own-company) section.
 
 <br>
 
