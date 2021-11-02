@@ -736,10 +736,11 @@ fi
 ```
 </details>
    
-
-<br>
 <br>
 	   
+---   
+
+<br>
 
 ## Tips for using the script at your own company
 
@@ -749,6 +750,7 @@ I have tried to make this script simple and useful. You will want to customize t
 - To customize the [welcome logo](https://github.com/vendasta/setup-new-computer-script/blob/47b7c97f21b293e143a0566cafecec2cfc69c528/setup-new-computer.sh#L74-L90) and add a bit of style, I used the handy [Text to ASCII Art Generator](https://patorjk.com/software/taag/#p=testall&f=Isometric1&t=Vendasta)
 - When you update the script, remember to update the readme "What's Installed" section too
 - Be sure to update both the `.bash_profile` and `.zprofile`
+- This is MIT licensed, so be sure to include the [LICENSE file](https://github.com/vendasta/setup-new-computer-script/blob/master/LICENSE)
 
 
 ## Resources and inspiration
@@ -761,3 +763,17 @@ The following examples were helpful in building this script.
   https://github.com/donnemartin/dev-setup#dev-setup
 * thoughtbot/laptop\
   https://github.com/thoughtbot/laptop
+
+
+## Todo: Prep for M1 compatibility 
+- Install Rosetta 2 (Is it not installed by default or automatically?)
+  `/usr/sbin/softwareupdate --install-rosetta`
+  or `sudo /usr/sbin/softwareupdate --install-rosetta agree-to-license`
+
+- Set the new M1 location of homebrew up in the path
+  `/opt/homebrew/bin`
+
+More reading:
+- https://www.wisdomgeek.com/development/installing-intel-based-packages-using-homebrew-on-the-m1-mac/
+- https://github.com/Homebrew/discussions/discussions/417
+
