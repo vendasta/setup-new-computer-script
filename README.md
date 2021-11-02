@@ -747,6 +747,7 @@ I have tried to make this script simple and useful. You will want to customize t
 - When you update the script, remember to update the readme "What's Installed" section too
 - Be sure to update both the `.bash_profile` and `.zprofile`
 - This is MIT licensed, so be sure to include the [LICENSE file](https://github.com/vendasta/setup-new-computer-script/blob/master/LICENSE)
+- Let me know! It is good to know if you find this helpful
 
 
 ## Resources and inspiration
