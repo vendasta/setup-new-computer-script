@@ -742,7 +742,7 @@ This script helps new developers at Vendasta setup their laptops quicker, lettin
 I have tried to make this script simple and useful. You will want to customize the installation and configuration to match the tools and services you use at your company.
 	   
 - At Vendasta, we are using Python 2, Go, Angular, and Google Cloud. You most likely do not use all of these, so remove, change, and tweak to meet your needs.
-- We lock our Node version at 14 (using NVM) for best compatability with Angular. You will likely want to change this. 
+- We lock our Node version at 14 (using NVM) for best compatability with Angular and NX. You will likely want to change this. 
 - To customize the [welcome logo](https://github.com/vendasta/setup-new-computer-script/blob/47b7c97f21b293e143a0566cafecec2cfc69c528/setup-new-computer.sh#L74-L90) and add a bit of style, I used the handy [Text to ASCII Art Generator](https://patorjk.com/software/taag/#p=testall&f=Isometric1&t=Vendasta)
 - When you update the script, remember to update the readme "What's Installed" section too
 - Be sure to update both the `.bash_profile` and `.zprofile`
