@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="v2.0"
+VERSION="v2.0.1"
 #===============================================================================
 # title           setup-new-computer.sh
 # author          jkesler@vendasta.com
