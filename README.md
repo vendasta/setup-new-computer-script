@@ -486,7 +486,7 @@ gcloud components install docker-credential-gcr --quiet
   <summary>Slack</summary>
   
 ```sh
-brew install -cask slack
+brew install --cask slack
 ```
 </details>
 
