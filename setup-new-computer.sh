@@ -267,7 +267,7 @@ EOT
 }
 
 
-# Get root user for later. Brew needs the user to be admin for 
+# Get root user for later. Brew needs the user to be admin to install 
 sudo ls > /dev/null
 
 
