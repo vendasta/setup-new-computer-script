@@ -418,7 +418,7 @@ printDivider
 printHeading "Installing Go"
     printDivider
         echo "✔ Creating Go directory in home folder [~/go]"
-            mkdir ~/go
+            mkdir -p ~/go
     printStep "Go"            "brew install go"
     printDivider
         echo "✔ Setting GOPRIVATE enviromental variable"
