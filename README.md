@@ -377,7 +377,7 @@ node-upgrade() {
   <summary>Go</summary>
   
    ```sh
-   mkdir ~/go
+   mkdir -p ~/go
    brew install go
    go env -w GOPRIVATE="github.com/vendasta"
    ```
