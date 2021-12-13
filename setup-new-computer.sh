@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="v2.0.1"
+VERSION="v2.1.0"
 #===============================================================================
 # title           setup-new-computer.sh
 # author          jkesler@vendasta.com
@@ -367,11 +367,7 @@ printHeading "Installing Brew Packages"
     printStep "bash-completion"             "brew install bash-completion"
     printStep "zsh-completions"             "brew install zsh-completions"
     printStep "Git"                         "brew install git"
-    printStep "Github CLI - gh"             "brew install gh"
-    printStep "Hub for Github"              "brew install hub"
     printStep "Ruby"                        "brew install ruby"
-    printStep "ack"                         "brew install ack"
-    printStep "Silver Searcher - ag"        "brew install ag"
 printDivider
 
 

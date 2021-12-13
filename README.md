@@ -335,41 +335,6 @@ node-upgrade() {
    ```
 </details>
 
-
-<details>
-  <summary>Github CLI (gh)</summary>
-  
-   ```sh
-   brew install hub
-   ```
-</details>
-
-
-<details>
-  <summary>Hub (unofficial commandline Github)</summary>
-  
-   ```sh
-   brew install gh
-   ```
-</details>
-
-
-<details>
-  <summary>ack</summary>
-  
-   ```sh
-   brew install ack
-   ```
-</details>
-
-
-<details>
-  <summary>Silver Searcher (ag)</summary>
-  
-   ```sh
-   brew install ag
-   ```
-</details>
  
  
  ### Languages
@@ -396,7 +361,6 @@ node-upgrade() {
    sudo -H pip install --quiet pyCrypto
    sudo -H pip install --quiet virtualenv
    ```
-    
 </details>
 
 
@@ -407,6 +371,7 @@ node-upgrade() {
 brew reinstall python
 ```
 </details>
+
 
 <details>
   <summary>Node (from nvm, with npm, nx, husky, Angular CLI, Node-Sass, and Node-Gyp)</summary>
@@ -448,7 +413,8 @@ export NVM_DIR="$HOME/.nvm"
 ```
   
 </details>
-  
+
+
 <details>
   <summary>Ruby</summary>
   
@@ -456,6 +422,7 @@ export NVM_DIR="$HOME/.nvm"
 brew install ruby
 ```
 </details>
+	   
 
 <details>
   <summary>Google Cloud Components</summary>
@@ -490,6 +457,7 @@ brew install --cask slack
 ```
 </details>
 
+
 <details>
   <summary>Firefox</summary>
   
@@ -497,6 +465,7 @@ brew install --cask slack
 brew install --cask firefox
 ```
 </details>
+
 
 <details>
   <summary>Google Chrome</summary>
@@ -535,6 +504,7 @@ brew install --cask visual-studio-code
 ```
 </details>
 
+
 <details>
   <summary>Jetbrains Toolbox</summary>
   
@@ -542,6 +512,7 @@ brew install --cask visual-studio-code
 brew install --cask jetbrains-toolbox
 ```
 </details>
+
 
 <details>
   <summary>Pycharm</summary>
@@ -551,6 +522,7 @@ brew install --cask pycharm
 ```
 </details>
 
+
 <details>
   <summary>Goland</summary>
   
@@ -558,6 +530,7 @@ brew install --cask pycharm
 brew install --cask goland
 ```
 </details>
+
 
 <details>
   <summary>WebStorm</summary>
@@ -567,6 +540,7 @@ brew install --cask webstorm
 ```
 </details>
 
+
 <details>
   <summary>Sublime Text</summary>
   
@@ -574,6 +548,7 @@ brew install --cask webstorm
 brew install --cask sublime-text
 ```
 </details>
+
 
 <details>
   <summary>iTerm2</summary>
@@ -689,6 +664,8 @@ defaults write com.google.Chrome.canary PMPrintingExpandedStateForPrint2 -bool t
 ```
 </details>
 
+
+
 ### Set up Git
 
 <details>
@@ -728,12 +705,14 @@ else
 fi
 ```
 </details>
-   
+
+
 <br>
 	   
 ---   
 
 <br>
+
 
 ## Tips for using the script at your own company
 
