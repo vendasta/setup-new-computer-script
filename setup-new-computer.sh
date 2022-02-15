@@ -157,10 +157,10 @@ export NVM_DIR="\$HOME/.nvm"
 # Increases the default memory limit for Node, so larger Angular projects can be built
 export NODE_OPTIONS=--max_old_space_size=8192
 
-# Update Node 14 and reinstall previous packages
+# Update Node 16 and reinstall previous packages
 node-upgrade() {
     prev_ver=\$(nvm current)
-    nvm install 14
+    nvm install 16
     nvm reinstall-packages "\$prev_ver"
     nvm uninstall "\$prev_ver"
     nvm cache clear
@@ -225,10 +225,10 @@ export NVM_DIR="\$HOME/.nvm"
 # Increases the default memory limit for Node, so larger Anglar prjects can be built
 export NODE_OPTIONS=--max_old_space_size=8192
 
-# Update Node 14 and reinstall previous packages
+# Update Node 16 and reinstall previous packages
 node-upgrade() {
     prev_ver=\$(nvm current)
-    nvm install 14
+    nvm install 16
     nvm reinstall-packages "\$prev_ver"
     nvm uninstall "\$prev_ver"
     nvm cache clear
@@ -465,7 +465,7 @@ printHeading "Installing Node and Angular CLI through NVM"
         [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     printDivider
         echo "Installing Node..."
-        nvm install 14
+        nvm install 16
     printStep "Angular CLI"             "npm install -g @angular/cli"
     printStep "NX"                      "npm install -g nx"
     printStep "Husky"                   "npm install -g husky"
