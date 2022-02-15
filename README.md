@@ -93,21 +93,21 @@ If you're seeing errors like [`ImportError: cannot import name apiproxy`](https:
 
 **Installing Node versions**\
 Use nvm to install and upgrade different versions of Node. [Official docs][nvm docs] \
-We use the Node v14 at Vendasta.
+We use the Node v16 at Vendasta.
 ```sh
-# Install the latest version of Node 14 with NPM
-nvm install 14
+# Install the latest version of Node 16 with NPM
+nvm install 16
 
 # Install a specific version of Node
-nvm install 12      # or 10.10.0, 8.9.1, etc
+nvm install 14      # or 10.10.0, 8.9.1, etc
 ```
 
 <br>
 
 **Upgrading Node and NPM**\
-There is a handy command in your `.bash_profile` and `.zsh_profile` that will automatically upgrade to the latest version of Node 14 and NPM, plus it will re-install any global packages you have installed so you do not have to manually do it each time. Read more about it [here](https://vendasta.jira.com/wiki/spaces/RD/pages/212172883/Tips+and+Tricks#Easily-Update-Node-and-NPM-(using-NVM)-Terminal)
+There is a handy command in your `.bash_profile` and `.zsh_profile` that will automatically upgrade to the latest version of Node 16 and NPM, plus it will re-install any global packages you have installed so you do not have to manually do it each time. Read more about it [here](https://vendasta.jira.com/wiki/spaces/RD/pages/212172883/Tips+and+Tricks#Easily-Update-Node-and-NPM-(using-NVM)-Terminal)
 ```sh
-node-upgrade        # update node 14 and reinstall all global packages
+node-upgrade        # update node 16 and reinstall all global packages
 ```
 
 <br>
@@ -213,7 +213,7 @@ export NODE_OPTIONS=--max_old_space_size=8192
 # Update Node lts and reinstall previous packages
 node-upgrade() {
     prev_ver=$(nvm current)
-    nvm install 14
+    nvm install 16
     nvm reinstall-packages "$prev_ver"
     nvm uninstall "$prev_ver"
     nvm cache clear
@@ -276,7 +276,7 @@ export NODE_OPTIONS=--max_old_space_size=8192
 # Update Node lts and reinstall previous packages
 node-upgrade() {
     prev_ver=$(nvm current)
-    nvm install 14
+    nvm install 16
     nvm reinstall-packages "$prev_ver"
     nvm uninstall "$prev_ver"
     nvm cache clear
@@ -387,7 +387,7 @@ getLastestNVM() {
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/$(getLastestNVM)/install.sh | bash
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-nvm install 14
+nvm install 16
 npm install -g @angular/cli
 npm install -g nx
 npm install -g husky
@@ -721,7 +721,7 @@ This script helps new developers at Vendasta setup their laptops quicker, lettin
 I have tried to make this script simple and useful. You will want to customize the installation and configuration to match the tools and services you use at your company.
 	   
 - At Vendasta, we are using Python 2, Go, Angular, and Google Cloud. You most likely do not use all of these, so remove, change, and tweak to meet your needs.
-- We lock our Node version at 14 (using NVM) for best compatability with Angular and NX. You will likely want to change this. 
+- We lock our Node version at 16 (using NVM) for best compatability with Angular and NX. You will likely want to change this. 
 - To customize the [welcome logo](https://github.com/vendasta/setup-new-computer-script/blob/47b7c97f21b293e143a0566cafecec2cfc69c528/setup-new-computer.sh#L74-L90) and add a bit of style, I used the handy [Text to ASCII Art Generator](https://patorjk.com/software/taag/#p=testall&f=Isometric1&t=Vendasta)
 - When you update the script, remember to update the readme "What's Installed" section too
 - Be sure to update both the `.bash_profile` and `.zprofile`
