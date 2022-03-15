@@ -70,26 +70,11 @@ compaudit | xargs chmod g-w
 
 <br>
 
-**Setting Up Pycharm with Mac OS Python**\
-Vendasta Python projects **Do Not Work** with homebrew Python.\
-In Pycharm, when you choose a Project Interpreter, make a custom one set to `/usr/bin/python`
+**Setting Up Pycharm with Python 2.7**\
+As Mac OS has recently removed the bundled copy of Python 2.7, please see [this help document on working with our Legacy Appengine projects](https://vendasta.jira.com/wiki/spaces/RD/pages/1688469847/Pycharm+Setup+for+Legacy+Appengine+Python+2.7)
 
 <br>
 
-**Mac OS Python 2 and Homebrew 3**\
-Vendasta's Python projects _do not work properly with Homebrew Python_. This can cause confusion, as many tools need homebrew Python. Here is how to use the different Pythons:
-  
-  > The built-in Mac OS Python and it's pip are available as `python` and `pip`.\
-  > Homebrew Python 3 and it's pip is available as `python3` and `pip3` 
-
-If `pip` installation fails when using `sudo -H /usr/bin/easy_install pip` try running `sudo -H python -m ensurepip`
-
-<br>
-
-**Fix Python Google SDK errors**\
-If you're seeing errors like [`ImportError: cannot import name apiproxy`](https://issuetracker.google.com/issues/202171426) or other google app engine errors, try to downgrade the SDK to older version by running `gcloud components update --version 359.0.0`
-
-<br>
 
 **Installing Node versions**\
 Use nvm to install and upgrade different versions of Node. [Official docs][nvm docs] \
@@ -171,9 +156,6 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 # Setting up Path for Homebrew
 export PATH=/usr/local/sbin:$PATH
 
-# Setup Path for Local Python Installs
-export PATH=$PATH:$HOME/Library/Python/2.7/bin
-
 # Bash Autocompletion
 if type brew &>/dev/null; then
   HOMEBREW_PREFIX="$(brew --prefix)"
@@ -236,9 +218,6 @@ node-upgrade() {
 
 # Setting up Path for Homebrew
 export PATH=/usr/local/sbin:$PATH
-
-# Setup Path for Local Python Installs
-export PATH=$PATH:$HOME/Library/Python/2.7/bin
 
 # Brew Autocompletion
 if type brew &>/dev/null; then
@@ -346,30 +325,6 @@ node-upgrade() {
    brew install go
    go env -w GOPRIVATE="github.com/vendasta"
    ```
-</details>
-
-
-<details>
-  <summary>Mac OS Python (Installing Pip, Invoke, Requests, lxml, pyCrypto, Virtualenv)</summary>
-  
-   ```sh
-   sudo -H /usr/bin/easy_install pip==20.3.4    # Installing Pip for MacOS Python
-   sudo -H pip install --upgrade "pip < 21.0"   # Upgrading Pip to last python2 supported version
-   sudo -H pip install --quiet invoke
-   sudo -H pip install --quiet requests
-   sudo -H pip install --quiet lxml
-   sudo -H pip install --quiet pyCrypto
-   sudo -H pip install --quiet virtualenv
-   ```
-</details>
-
-
-<details>
-  <summary>Homebrew Python 3 (with pip3)</summary>
-  
-```sh
-brew reinstall python
-```
 </details>
 
 
@@ -720,7 +675,7 @@ This script helps new developers at Vendasta setup their laptops quicker, lettin
 	   
 I have tried to make this script simple and useful. You will want to customize the installation and configuration to match the tools and services you use at your company.
 	   
-- At Vendasta, we are using Python 2, Go, Angular, and Google Cloud. You most likely do not use all of these, so remove, change, and tweak to meet your needs.
+- At Vendasta, we are using Go, Angular, and Google Cloud. You most likely do not use all of these, so remove, change, and tweak to meet your needs.
 - We lock our Node version at 16 (using NVM) for best compatability with Angular and NX. You will likely want to change this. 
 - To customize the [welcome logo](https://github.com/vendasta/setup-new-computer-script/blob/47b7c97f21b293e143a0566cafecec2cfc69c528/setup-new-computer.sh#L74-L90) and add a bit of style, I used the handy [Text to ASCII Art Generator](https://patorjk.com/software/taag/#p=testall&f=Isometric1&t=Vendasta)
 - When you update the script, remember to update the readme "What's Installed" section too
