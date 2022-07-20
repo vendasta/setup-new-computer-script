@@ -375,9 +375,13 @@ printHeading "Installing Brew Packages"
     printStep "Bash"                        "brew install bash"
     printStep "bash-completion"             "brew install bash-completion"
     printStep "zsh-completions"             "brew install zsh-completions"
-    printStep "Git"                         "brew install git"
     printStep "Ruby"                        "brew install ruby"
+    printStep "Git"                         "brew install git"
 printDivider
+    echo "✔ Configure git to always ssh when dealing with https github repos"
+        git config --global url."git@github.com:".insteadOf https://github.com/
+printDivider
+
 
 
 # Install  Apps
@@ -553,9 +557,6 @@ printDivider
 
 # Set up Git
 printHeading "Set Up Git"
-
-# Configure git to always ssh when dealing with https github repos
-git config --global url."git@github.com:".insteadOf https://github.com/
 
 printDivider
     echo "✔ Set Git to store credentials in Keychain"
