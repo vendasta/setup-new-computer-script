@@ -276,7 +276,14 @@ EOT
 }
 
 
-# Get root user for later. Brew needs the user to be admin to install 
+#===============================================================================
+# Installer: Get admin privileges
+#===============================================================================
+
+
+# Get root user for later. Brew needs the user to be admin to install
+echo ""
+echo "Some installations require admin privileges. Please enter your password"
 sudo ls > /dev/null
 
 
@@ -386,11 +393,42 @@ printDivider
 
 # Install  Apps
 printHeading "Installing Applications"
-    printStep "Slack"                       "brew install --cask slack"
-    printStep "Firefox"                     "brew install --cask firefox"
-    printStep "Google Chrome"               "brew install --cask google-chrome"
-    printStep "Docker for Mac"              "brew install --cask docker"
-    printStep "Postman"                     "brew install --cask postman"
+
+    if [[ -d "/Applications/Slack.app" ]]; then
+        printDivider
+        echo "✔ Slack already installed. Skipping"
+    else
+        printStep "Slack"                     "brew install --cask slack"
+    fi
+
+    if [[ -d "/Applications/Firefox.app" ]]; then
+        printDivider
+        echo "✔ Firefox already installed. Skipping"
+    else
+        printStep "Firefox"                     "brew install --cask firefox"
+    fi
+
+    if [[ -d "/Applications/Google Chrome.app" ]]; then
+        printDivider
+        echo "✔ Google Chrome already installed. Skipping"
+    else
+        printStep "Google Chrome"               "brew install --cask google-chrome"
+    fi
+
+    if [[ -d "/Applications/Docker.app" ]]; then
+        printDivider
+        echo "✔ Docker already installed. Skipping"
+    else
+        printStep "Docker for Mac"              "brew install --cask docker"
+    fi
+
+    if [[ -d "/Applications/Postman.app" ]]; then
+        printDivider
+        echo "✔ Postman already installed. Skipping"
+    else
+        printStep "Postman"                     "brew install --cask postman"
+    fi
+
     # Install Visual Studio Code
     if [[ "${devtoolchoices[0]}" == "+" ]]; then
         printStep "Visual Studio Code"      "brew install --cask visual-studio-code"
@@ -456,11 +494,11 @@ printHeading "Installing Node and Angular CLI through NVM"
     printDivider
         echo "Installing Node..."
         nvm install 16
-    printStep "Angular CLI"             "npm install -g @angular/cli"
-    printStep "NX"                      "npm install -g nx"
-    printStep "Husky"                   "npm install -g husky"
-    printStep "Node Sass"               "npm install -g node-sass"
-    printStep "Node Gyp"                "npm install -g node-gyp"
+    printStep "Angular CLI"             "npm install --location=global @angular/cli"
+    printStep "NX"                      "npm install --location=global nx"
+    printStep "Husky"                   "npm install --location=global husky"
+    printStep "Node Sass"               "npm install --location=global node-sass"
+    printStep "Node Gyp"                "npm install --location=global node-gyp"
     printDivider
         echo "✔ Touch ~/.huskyrc"
             touch ~/.huskyrc
