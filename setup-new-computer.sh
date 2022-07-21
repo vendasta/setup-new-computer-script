@@ -362,7 +362,7 @@ printDivider
     #     eval "\$(${HOMEBREW_PREFIX}/bin/brew shellenv)"
 
     echo "✔ Setting Path for Homebrew"
-        export PATH=${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
+        export "PATH=${BREW_PREFIX}/bin:${BREW_PREFIX}/sbin:$PATH"
 printDivider
     echo "✔ (zsh) Fix brew insecure directories warning"
     chmod go-w "$(brew --prefix)/share"
