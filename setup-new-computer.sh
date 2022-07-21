@@ -377,9 +377,6 @@ printHeading "Installing Brew Packages"
     printStep "Ruby"                        "brew install ruby"
     printStep "Git"                         "brew install git"
 printDivider
-    echo "✔ Configure git to always ssh when dealing with https github repos"
-        git config --global url."git@github.com:".insteadOf https://github.com/
-printDivider
 
 
 
@@ -606,6 +603,10 @@ printDivider
         git config --global user.name "$gitName"
     fi
 printDivider
+    echo "✔ Configure git to always ssh when dealing with https github repos"
+        git config --global url."git@github.com:".insteadOf https://github.com/
+printDivider
+
 
 
 
