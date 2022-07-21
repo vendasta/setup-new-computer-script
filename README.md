@@ -1,7 +1,7 @@
 # Temp
 
 ```
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/vendasta/setup-new-computer-script/blob/jk/add-support-for-m1-macs/setup-new-computer.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/vendasta/setup-new-computer-script/jk/add-support-for-m1-macs/setup-new-computer.sh)"
 ```
 
 # Setup a New Developer Computer
