@@ -277,17 +277,6 @@ EOT
 
 
 #===============================================================================
-# Installer: Get admin privileges
-#===============================================================================
-
-
-# Get root user for later. Brew needs the user to be admin to install
-echo ""
-echo "Some installations require admin privileges. Please enter your password"
-sudo ls > /dev/null
-
-
-#===============================================================================
 # Installer: Settings
 #===============================================================================
 
@@ -369,8 +358,11 @@ printHeading "Installing Homebrew"
 printDivider
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 printDivider
-    echo "✔ Initilizing Brew"
-        eval "\$(${HOMEBREW_PREFIX}/bin/brew shellenv)"
+    # echo "✔ Initilizing Brew"
+    #     eval "\$(${HOMEBREW_PREFIX}/bin/brew shellenv)"
+
+    echo "✔ Setting Path for Homebrew"
+        export PATH=${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
 printDivider
     echo "✔ (zsh) Fix brew insecure directories warning"
     chmod go-w "$(brew --prefix)/share"
