@@ -43,7 +43,7 @@ Afer you have run the script, please complete the following steps to finish sett
 
    
 1. **Github Command-line SSH Authentication**\
-   Do the following to authorize Github on your computer:
+   Git is now configured to use SSH by default for github urls. You will need to generate and add an SSH key to your Github account or you will run into errors. Do the following to authorize Github on your computer:
    - [Generate an SSH key for your new computer][generate key]
    - [Add the SSH public key to your Github account][add to github]
      
