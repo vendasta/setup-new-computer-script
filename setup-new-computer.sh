@@ -359,10 +359,10 @@ printDivider
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 printDivider
     echo "✔ Setting Path for Homebrew"
-    echo "Path Before"
+    echo "Path Before:"
     echo $PATH
         export "PATH=${BREW_PREFIX}/bin:${BREW_PREFIX}/sbin:$PATH"
-    echo "Path After"
+    echo "Path After:"
     echo $PATH
 printDivider
     echo "✔ (zsh) Fix brew insecure directories warning"
