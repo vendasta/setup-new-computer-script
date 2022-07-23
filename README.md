@@ -18,7 +18,7 @@ Paste the command below in a Mac OS Terminal:
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/vendasta/setup-new-computer-script/master/setup-new-computer.sh)"
 ```
 
-## Manual Download Instructions
+## Manual Install Instructions
 
 * Download the script `setup-new-computer.sh` to your home folder
 * Open Terminal and navigate to where you saved it
@@ -108,6 +108,7 @@ Use nvm to switch between installed versions of Node. [Official docs][nvm docs]
 ```sh
 # To switch to the latest Node
 nvm use node        # "node" is an alias for the latest version
+
 # Switch to long term support (lts) version of Node
 nvm use --lts
  
