@@ -39,21 +39,6 @@ options[6]="iTerm2";                devtoolchoices[5]=""
 
 
 #===============================================================================
-#  Setup Paths for Brew
-#===============================================================================
-
-MAC_TYPE="$(/usr/bin/uname -m)"
-
-if [[ "${MAC_TYPE}" == "arm64" ]]
-then
-    # On ARM macOS, this script installs to /opt/homebrew only
-    BREW_PREFIX="/opt/homebrew"
-else
-    # On Intel macOS, this script installs to /usr/local only
-    BREW_PREFIX="/usr/local"
-fi
-
-#===============================================================================
 #  Functions
 #===============================================================================
 
@@ -128,7 +113,13 @@ cat << EOT >> ~/.bash_profile
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
 # Start Homebrew
-eval "\$(${BREW_PREFIX}/bin/brew shellenv)"
+if [[ "\$(uname -p)" == "arm" ]]; then
+    # Apple Silicon M1/M2 Macs
+    eval "\$(/opt/homebrew/bin/brew shellenv)"
+else
+    # Intel Macs
+    eval "\$(/usr/local/bin/brew shellenv)"
+fi
 
 # Bash Autocompletion
 if type brew &>/dev/null; then
@@ -155,7 +146,6 @@ export GO111MODULE="on"
 export GOPATH=\$HOME/go
 export GOBIN=\$GOPATH/bin
 export PATH=\$PATH:\$GOBIN
-
 
 # NVM
 # This needs to be after "Setting up Path for Homebrew" to override Homebrew Node
@@ -195,7 +185,13 @@ cat << EOT >> ~/.zprofile
 # --------------------------------------------------------------------
 
 # Start Homebrew
-eval "\$(${BREW_PREFIX}/bin/brew shellenv)"
+if [[ "\$(uname -p)" == "arm" ]]; then
+    # Apple Silicon M1/M2 Macs
+    eval "\$(/opt/homebrew/bin/brew shellenv)"
+else
+    # Intel Macs
+    eval "\$(/usr/local/bin/brew shellenv)"
+fi
 
 # Brew Autocompletion
 if type brew &>/dev/null; then
@@ -361,7 +357,15 @@ printDivider
     echo "✔ Setting Path for Homebrew"
     echo "Path Before:"
     echo $PATH
-        export "PATH=${BREW_PREFIX}/bin:${BREW_PREFIX}/sbin:$PATH"
+
+    if [[ "$(uname -p)" == "arm" ]]; then
+        # Apple Silicon M1/M2 Macs
+        export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH
+    else
+        # Intel Macs
+        export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+    fi
+    
     echo "Path After:"
     echo $PATH
 printDivider
