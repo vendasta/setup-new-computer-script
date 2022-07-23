@@ -717,7 +717,7 @@ The following examples were helpful in building this script.
   https://github.com/thoughtbot/laptop
 
 
-## Tips for Testing
+## Tips for Testing in Virtual Machines
 
 - Intel - Install Intel Mac OS VMs with Virtualbox
   https://github.com/myspaghetti/macos-virtualbox
