@@ -360,10 +360,10 @@ printDivider
 
     if [[ "$(uname -p)" == "arm" ]]; then
         # Apple Silicon M1/M2 Macs
-        export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH
+        export PATH=/opt/homebrew/bin:$PATH
     else
         # Intel Macs
-        export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+        export PATH=/usr/local/bin:$PATH
     fi
     
     echo "Path After:"
