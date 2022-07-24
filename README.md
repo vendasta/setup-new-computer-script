@@ -1,3 +1,9 @@
+# Temp
+
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/vendasta/setup-new-computer-script/jk/add-support-for-m1-macs/setup-new-computer.sh)"
+```
+
 # Setup a New Developer Computer
 This script will help with the quick setup and installation of tools and applications for new developers at Vendasta. Tested in Mac OS 10.14 to 12. This script works on both Intel and M1/M2 Macs. 
 
