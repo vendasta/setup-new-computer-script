@@ -611,7 +611,12 @@ printDivider
     echo "✔ Configure git to always ssh when dealing with https github repos"
         git config --global url."git@github.com:".insteadOf https://github.com/
 printDivider
-
+    echo "✔ Creating .ssh directory in home folder [~/.ssh]"
+        mkdir -p ~/go
+printDivider
+    echo "✔ Adding github.com to known_hosts file [~/.ssh/known_hosts]"
+        ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+printDivider
 
 
 
