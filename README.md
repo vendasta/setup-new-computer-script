@@ -365,11 +365,11 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/$(getLastestNVM)/install.s
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 nvm install 16
-npm install -g @angular/cli
-npm install -g nx
-npm install -g husky
-npm install -g node-sass
-npm install -g node-gyp
+npm install --location=global @angular/cli
+npm install --location=global nx
+npm install --location=global husky
+npm install --location=global node-sass
+npm install --location=global node-gyp
 ```
   We will also create a new file called `~/.huskyrc` and fill it with:
 ```
