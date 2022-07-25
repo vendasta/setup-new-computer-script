@@ -724,10 +724,12 @@ The following examples were helpful in building this script.
   https://github.com/thoughtbot/laptop
 
 
-## Tips for Testing in Virtual Machines
+## Testing in Virtual Machines
 
-- Intel - Install Intel Mac OS VMs with Virtualbox
+I recomend testing your script on a fresh Mac VM to make sure your changes will work properly. Installing on a clean Mac install will let you find problems you may not see if you run the script repeatidly on your own computer.
+
+- Testing in Intel Macs - Install Intel Mac OS VMs with Virtualbox \
   https://github.com/myspaghetti/macos-virtualbox
-- M1/M2 - Install UTM to run Mac OS VMs using Apple's Virtualization.framework
+- Testing on M1/M2 Macs - Install UTM to run Mac OS VMs using Apple's Virtualization.framework \
   https://mac.getutm.app/
 
