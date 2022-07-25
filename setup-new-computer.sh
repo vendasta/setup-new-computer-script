@@ -3,7 +3,7 @@
 VERSION="v3.0.0"
 #===============================================================================
 # title           setup-new-computer.sh
-# author          jkesler@vendasta.com
+# author          Joel Kesler 
 #                 https://github.com/joelkesler
 #===============================================================================
 #   A shell script to help with the quick setup and installation of tools and 
@@ -610,6 +610,7 @@ printDivider
 printDivider
     echo "✔ Configure git to always ssh when dealing with https github repos"
         git config --global url."git@github.com:".insteadOf https://github.com/
+        # you can remove this change by editing your ~/.gitconfig file
 printDivider
     echo "✔ Creating .ssh directory in home folder [~/.ssh]"
         mkdir -p ~/go
@@ -654,6 +655,8 @@ tput sgr0 # reset text
 echo ""
 echo ""
 echo "Please open a new terminal window to continue your setup steps"
+echo ""
+echo ""
 
 
 exit
