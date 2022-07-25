@@ -32,14 +32,14 @@ Paste the command below in a Mac OS Terminal:
    ```
 
 * Some installs will need your password
-* You will be promted to fill out your git email and name. Use the email and name you use for Github
+* You will be prompted to fill out your git email and name. Use the email and name you use for Github
 
 
 <br><br>
 
 
 ## Post Installation Instructions
-Afer you have run the script, please complete the following steps to finish setting up your computers:
+After you have run the script, please complete the following steps to finish setting up your computers:
 
    
 1. **Github Command-line SSH Authentication**\
@@ -121,7 +121,7 @@ nvm use 11          # or 10.10.0, 8.9.1, etc
 <br>
   
 **Keeping your tools up-to-date**\
-Homebrew can keep your commandline tools and languages up-to-date.
+Homebrew can keep your command-line tools and languages up-to-date.
 ```sh
 # List what needs to be updated
 brew update
@@ -210,7 +210,7 @@ node-upgrade() {
     prev_ver=$(nvm current)
     nvm install 16
     nvm reinstall-packages "$prev_ver"
-    nvm uninstall "$prev_ver"
+    # nvm uninstall "$prev_ver"
     nvm cache clear
 }
 
@@ -276,7 +276,7 @@ node-upgrade() {
     prev_ver=$(nvm current)
     nvm install 16
     nvm reinstall-packages "$prev_ver"
-    nvm uninstall "$prev_ver"
+    # nvm uninstall "$prev_ver"
     nvm cache clear
 }
 
@@ -287,7 +287,7 @@ node-upgrade() {
 </details>
 
 
-### Commandline tools and languages
+### Command-line tools and languages
 <details>
   <summary>Xcode CLI Development Tools</summary>
   
@@ -699,7 +699,7 @@ This script helps new developers at Vendasta setup their laptops quicker, lettin
 I have tried to make this script simple and useful. You will want to customize the installation and configuration to match the tools and services you use at your company.
 	   
 - At Vendasta, we are using Go, Angular, and Google Cloud. You most likely do not use all of these, so remove, change, and tweak to meet your needs.
-- We lock our Node version at 16 (using NVM) for best compatability with Angular and NX. You will likely want to change this. 
+- We lock our Node version at 16 (using NVM) for best compatibility with Angular and NX. You will likely want to change this. 
 - To customize the [welcome logo](https://github.com/vendasta/setup-new-computer-script/blob/47b7c97f21b293e143a0566cafecec2cfc69c528/setup-new-computer.sh#L74-L90) and add a bit of style, I used the handy [Text to ASCII Art Generator](https://patorjk.com/software/taag/#p=testall&f=Isometric1&t=Vendasta)
 - When you update the script, remember to update the readme "What's Installed" section too
 - Be sure to update both the `.bash_profile` and `.zprofile`
@@ -721,7 +721,7 @@ The following examples were helpful in building this script.
 
 ## Testing in Virtual Machines
 
-I recomend testing your script on a fresh Mac VM to make sure your changes will work properly. Installing on a clean Mac install will let you find problems you may not see if you run the script repeatidly on your own computer.
+I recommend testing your script on a fresh Mac VM to make sure your changes will work properly. Installing on a clean Mac install will let you find problems you may not see if you run the script repeatedly on your own computer.
 
 - Testing in Intel Macs - Install Intel Mac OS VMs with Virtualbox \
   https://github.com/myspaghetti/macos-virtualbox
