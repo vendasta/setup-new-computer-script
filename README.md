@@ -650,6 +650,7 @@ defaults write com.google.Chrome.canary PMPrintingExpandedStateForPrint2 -bool t
   
 ```sh
 git config --global url."git@github.com:".insteadOf https://github.com/
+# you can remove this change by editing your ~/.gitconfig file
 ```
 </details>
 
