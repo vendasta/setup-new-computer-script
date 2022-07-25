@@ -164,7 +164,7 @@ node-upgrade() {
     prev_ver=\$(nvm current)
     nvm install 16
     nvm reinstall-packages "\$prev_ver"
-    nvm uninstall "\$prev_ver"
+    # nvm uninstall "\$prev_ver"
     nvm cache clear
 }
 
@@ -235,7 +235,7 @@ node-upgrade() {
     prev_ver=\$(nvm current)
     nvm install 16
     nvm reinstall-packages "\$prev_ver"
-    nvm uninstall "\$prev_ver"
+    # nvm uninstall "\$prev_ver"
     nvm cache clear
 }
 
