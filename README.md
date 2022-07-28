@@ -725,6 +725,6 @@ I recommend testing your script on a fresh Mac VM to make sure your changes will
 
 - Testing in Intel Macs - Install Intel Mac OS VMs with Virtualbox \
   https://github.com/myspaghetti/macos-virtualbox
-- Testing on M1/M2 Macs - Install UTM to run Mac OS VMs using Apple's Virtualization.framework \
-  https://mac.getutm.app/
+- Testing on M1/M2 Macs - Install VirtualBuddy to run Mac OS VMs using Apple's Virtualization.framework \
+  https://github.com/insidegui/VirtualBuddy
 
