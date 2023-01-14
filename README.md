@@ -623,6 +623,16 @@ defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
   <summary>Chrome: Disable the all too sensitive backswipe on Trackpads and Magic Mice</summary>
 
 ```sh
+# Note: The chrome defaults can cause your Chrome browser to display a message stating
+# that Chrome is "Managed by your organization" when it isn't
+# 
+# To view policies that are affecting this message, view the following pages:
+# chrome://policy and chrome://management/
+# 
+# To quickly remove Chrome default overrides, run the following commands:
+# defaults delete com.google.Chrome
+# defaults delete com.google.Chrome.canary
+#
 defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
 defaults write com.google.Chrome.canary AppleEnableSwipeNavigateWithScrolls -bool false
 defaults write com.google.Chrome AppleEnableMouseSwipeNavigateWithScrolls -bool false
@@ -634,6 +644,16 @@ defaults write com.google.Chrome.canary AppleEnableMouseSwipeNavigateWithScrolls
   <summary>Chrome: Use the system print dialog and expand dialog by default</summary>
   
 ```sh
+# Note: The chrome defaults can cause your Chrome browser to display a message stating
+# that Chrome is "Managed by your organization" when it isn't
+# 
+# To view policies that are affecting this message, view the following pages:
+# chrome://policy and chrome://management/
+# 
+# To quickly remove Chrome default overrides, run the following commands:
+# defaults delete com.google.Chrome
+# defaults delete com.google.Chrome.canary
+#
 defaults write com.google.Chrome DisablePrintPreview -bool true
 defaults write com.google.Chrome.canary DisablePrintPreview -bool true
 defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="v3.0.0"
+VERSION="v3.0.1"
 #===============================================================================
 # title           setup-new-computer.sh
 # author          Joel Kesler 
@@ -568,6 +568,16 @@ printHeading "System Tweaks"
         defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
     printDivider
     
+    # Note: The chrome defaults can cause your Chrome browser to display a message stating
+    # that Chrome is "Managed by your organization" when it isn't
+    # 
+    # To view policies that are affecting this message, view the following pages:
+    # chrome://policy and chrome://management/
+    # 
+    # To quickly remove Chrome default overrides, run the following commands:
+    # defaults delete com.google.Chrome
+    # defaults delete com.google.Chrome.canary
+    #
     echo "✔ Chrome: Disable the all too sensitive backswipe on Trackpads and Magic Mice"
         defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
         defaults write com.google.Chrome.canary AppleEnableSwipeNavigateWithScrolls -bool false
