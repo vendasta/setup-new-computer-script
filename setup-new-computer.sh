@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="v3.0.1"
+VERSION="v3.1.0"
 #===============================================================================
 # title           setup-new-computer.sh
 # author          Joel Kesler 
@@ -159,10 +159,10 @@ export NVM_DIR="\$HOME/.nvm"
 # Increases the default memory limit for Node, so larger Angular projects can be built
 export NODE_OPTIONS=--max_old_space_size=8192
 
-# Update Node 16 and reinstall previous packages
+# Update Node 18 and reinstall previous packages
 node-upgrade() {
     prev_ver=\$(nvm current)
-    nvm install 16
+    nvm install 18
     nvm reinstall-packages "\$prev_ver"
     # nvm uninstall "\$prev_ver"
     nvm cache clear
@@ -230,10 +230,10 @@ export NVM_DIR="\$HOME/.nvm"
 # Increases the default memory limit for Node, so larger Anglar prjects can be built
 export NODE_OPTIONS=--max_old_space_size=8192
 
-# Update Node 16 and reinstall previous packages
+# Update Node 18 and reinstall previous packages
 node-upgrade() {
     prev_ver=\$(nvm current)
-    nvm install 16
+    nvm install 18
     nvm reinstall-packages "\$prev_ver"
     # nvm uninstall "\$prev_ver"
     nvm cache clear
@@ -487,7 +487,7 @@ printHeading "Installing Node and Angular CLI through NVM"
         [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     printDivider
         echo "Installing Node..."
-        nvm install 16
+        nvm install 18
     printStep "Angular CLI"             "npm install --location=global @angular/cli"
     printStep "NX"                      "npm install --location=global nx"
     printStep "Husky"                   "npm install --location=global husky"
