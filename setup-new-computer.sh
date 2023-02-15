@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="v3.1.0"
+VERSION="v3.2.0"
 #===============================================================================
 # title           setup-new-computer.sh
 # author          Joel Kesler 
