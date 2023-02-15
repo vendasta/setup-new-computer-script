@@ -159,11 +159,13 @@ export NVM_DIR="\$HOME/.nvm"
 # Increases the default memory limit for Node, so larger Angular projects can be built
 export NODE_OPTIONS=--max_old_space_size=8192
 
-# Update Node 18 and reinstall previous packages
+# Update Node to selected version and reinstall previous packages
 node-upgrade() {
+    new_version=\${1:?"Please specify a version to upgrade to. Example: node-upgrade 18"}
     prev_ver=\$(nvm current)
-    nvm install 18
+    nvm install "\$new_version"
     nvm reinstall-packages "\$prev_ver"
+    nvm alias default "\$new_version"
     # nvm uninstall "\$prev_ver"
     nvm cache clear
 }
@@ -230,11 +232,13 @@ export NVM_DIR="\$HOME/.nvm"
 # Increases the default memory limit for Node, so larger Anglar prjects can be built
 export NODE_OPTIONS=--max_old_space_size=8192
 
-# Update Node 18 and reinstall previous packages
+# Update Node to selected version and reinstall previous packages
 node-upgrade() {
+    readonly new_version=\${1:?"Please specify a version to upgrade to. Example: node-upgrade 18"}
     prev_ver=\$(nvm current)
-    nvm install 18
+    nvm install "\$new_version"
     nvm reinstall-packages "\$prev_ver"
+    nvm alias default "\$new_version"
     # nvm uninstall "\$prev_ver"
     nvm cache clear
 }
