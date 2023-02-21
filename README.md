@@ -208,9 +208,7 @@ export NODE_OPTIONS=--max_old_space_size=12000
 # Update Node to selected version and reinstall previous packages
 node-upgrade() {
     new_version=${1:?"Please specify a version to upgrade to. Example: node-upgrade 18"}
-    prev_ver=$(nvm current)
-    nvm install "$new_version"
-    nvm reinstall-packages "$prev_ver"
+    nvm install "$new_version" --reinstall-packages-from=current
     nvm alias default "$new_version"
     # nvm uninstall "$prev_ver"
     nvm cache clear
@@ -276,9 +274,7 @@ export NODE_OPTIONS=--max_old_space_size=12000
 # Update Node to selected version and reinstall previous packages
 node-upgrade() {
     readonly new_version=${1:?"Please specify a version to upgrade to. Example: node-upgrade 18"}
-    prev_ver=$(nvm current)
-    nvm install "$new_version"
-    nvm reinstall-packages "$prev_ver"
+    nvm install "$new_version" --reinstall-packages-from=current
     nvm alias default "$new_version"
     # nvm uninstall "$prev_ver"
     nvm cache clear
