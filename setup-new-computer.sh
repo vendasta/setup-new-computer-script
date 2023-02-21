@@ -157,7 +157,7 @@ export NVM_DIR="\$HOME/.nvm"
 
 # Node
 # Increases the default memory limit for Node, so larger Angular projects can be built
-export NODE_OPTIONS=--max_old_space_size=8192
+export NODE_OPTIONS=--max_old_space_size=12000
 
 # Update Node to selected version and reinstall previous packages
 node-upgrade() {
@@ -230,7 +230,7 @@ export NVM_DIR="\$HOME/.nvm"
 
 # Node
 # Increases the default memory limit for Node, so larger Anglar prjects can be built
-export NODE_OPTIONS=--max_old_space_size=8192
+export NODE_OPTIONS=--max_old_space_size=12000
 
 # Update Node to selected version and reinstall previous packages
 node-upgrade() {
