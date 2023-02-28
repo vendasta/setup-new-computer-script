@@ -82,23 +82,18 @@ As Mac OS has recently removed the bundled copy of Python 2.7, please see [this 
 <br>
 
 
-**Installing Node versions**\
-Use nvm to install and upgrade different versions of Node. [Official docs][nvm docs] \
-We use the Node v18 at Vendasta.
-```sh
-# Install the latest version of Node 18 with NPM
-nvm install 18
+**Upgrading Node and NPM**\
+There is a handy command in your `.bash_profile` and `.zsh_profile` that will automatically install your chosen version of Node and NPM, plus it will re-install any global packages you have installed so you do not have to manually do it each time. Read more about it [here](https://vendasta.jira.com/wiki/spaces/RD/pages/212172883/Tips+and+Tricks#Easily-Update-Node-and-NPM-(using-NVM)-Terminal).
 
-# Install a specific version of Node
-nvm install 14      # or 10.10.0, 8.9.1, etc
+We use the Node v16 at Vendasta. Running the following will install the latest version of node 16, reinstall all global packages, and set it as the default version of node:
+```sh
+node-upgrade 16        # install node 16 and reinstall all global packages
 ```
 
-<br>
-
-**Upgrading Node and NPM**\
-There is a handy command in your `.bash_profile` and `.zsh_profile` that will automatically upgrade to the latest version of Node 18 and NPM, plus it will re-install any global packages you have installed so you do not have to manually do it each time. Read more about it [here](https://vendasta.jira.com/wiki/spaces/RD/pages/212172883/Tips+and+Tricks#Easily-Update-Node-and-NPM-(using-NVM)-Terminal)
+If you wish to install a version of node without reinstalling all global packages or setting it to be default, you can use NVM directly ([Official docs][nvm docs]):
 ```sh
-node-upgrade 18        # update node 18 and reinstall all global packages
+# Install a specific version of Node
+nvm install 14      # or 10.10.0, 8.9.1, etc
 ```
 
 <br>
