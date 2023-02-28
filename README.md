@@ -85,7 +85,7 @@ As Mac OS has recently removed the bundled copy of Python 2.7, please see [this 
 **Installing and Upgrading Node and NPM versions**\
 There is a handy command in your `.bash_profile` and `.zsh_profile` that will automatically install your chosen version of Node and NPM, plus it will re-install any global packages you have installed so you do not have to manually do it each time. Read more about it [here](https://vendasta.jira.com/wiki/spaces/RD/pages/212172883/Tips+and+Tricks#Easily-Update-Node-and-NPM-(using-NVM)-Terminal).
 
-We use the Node v16 at Vendasta. Running the following will install the latest version of node 16, reinstall all global packages, and set it as the default version of node:
+We use Node v16 at Vendasta. Running the following will install the latest version of node 16, reinstall all global packages, and set it as the default version of node:
 ```sh
 node-upgrade 16        # install node 16 and reinstall all global packages
 ```
