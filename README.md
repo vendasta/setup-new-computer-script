@@ -82,23 +82,18 @@ As Mac OS has recently removed the bundled copy of Python 2.7, please see [this 
 <br>
 
 
-**Installing Node versions**\
-Use nvm to install and upgrade different versions of Node. [Official docs][nvm docs] \
-We use the Node v16 at Vendasta.
-```sh
-# Install the latest version of Node 16 with NPM
-nvm install 16
+**Installing and Upgrading Node and NPM versions**\
+There is a handy command in your `.bash_profile` and `.zsh_profile` that will automatically install your chosen version of Node and NPM, re-install any global npm packages (like angular cli), and set the newly installed version as default.
 
-# Install a specific version of Node
-nvm install 14      # or 10.10.0, 8.9.1, etc
+We use Node v16 at Vendasta. To upgrade to the latest version of Node 16, re-install global npm packages, and set it as default, run the following command:
+```sh
+node-upgrade 16
 ```
 
-<br>
-
-**Upgrading Node and NPM**\
-There is a handy command in your `.bash_profile` and `.zsh_profile` that will automatically upgrade to the latest version of Node 16 and NPM, plus it will re-install any global packages you have installed so you do not have to manually do it each time. Read more about it [here](https://vendasta.jira.com/wiki/spaces/RD/pages/212172883/Tips+and+Tricks#Easily-Update-Node-and-NPM-(using-NVM)-Terminal)
+If you wish to install a version of node without reinstalling all global packages or setting it to be default, you can use NVM directly ([Official docs][nvm docs]):
 ```sh
-node-upgrade        # update node 16 and reinstall all global packages
+# Install a specific version of Node
+nvm install 14      # or 10.10.0, 8.9.1, etc
 ```
 
 <br>
@@ -203,13 +198,13 @@ export NVM_DIR="$HOME/.nvm"
 
 # Node
 # Increases the default memory limit for Node, so larger Anglar prjects can be built
-export NODE_OPTIONS=--max_old_space_size=8192
+export NODE_OPTIONS=--max_old_space_size=12000
 
-# Update Node lts and reinstall previous packages
+# Update Node to selected version and reinstall previous packages
 node-upgrade() {
-    prev_ver=$(nvm current)
-    nvm install 16
-    nvm reinstall-packages "$prev_ver"
+    new_version=${1:?"Please specify a version to upgrade to. Example: node-upgrade 16"}
+    nvm install "$new_version" --reinstall-packages-from=current
+    nvm alias default "$new_version"
     # nvm uninstall "$prev_ver"
     nvm cache clear
 }
@@ -269,13 +264,13 @@ export NVM_DIR="$HOME/.nvm"
 
 # Node
 # Increases the default memory limit for Node, so larger Anglar prjects can be built
-export NODE_OPTIONS=--max_old_space_size=8192
+export NODE_OPTIONS=--max_old_space_size=12000
 
-# Update Node lts and reinstall previous packages
+# Update Node to selected version and reinstall previous packages
 node-upgrade() {
-    prev_ver=$(nvm current)
-    nvm install 16
-    nvm reinstall-packages "$prev_ver"
+    readonly new_version=${1:?"Please specify a version to upgrade to. Example: node-upgrade 16"}
+    nvm install "$new_version" --reinstall-packages-from=current
+    nvm alias default "$new_version"
     # nvm uninstall "$prev_ver"
     nvm cache clear
 }

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="v3.0.1"
+VERSION="v3.2.0"
 #===============================================================================
 # title           setup-new-computer.sh
 # author          Joel Kesler 
@@ -157,13 +157,13 @@ export NVM_DIR="\$HOME/.nvm"
 
 # Node
 # Increases the default memory limit for Node, so larger Angular projects can be built
-export NODE_OPTIONS=--max_old_space_size=8192
+export NODE_OPTIONS=--max_old_space_size=12000
 
-# Update Node 16 and reinstall previous packages
+# Update Node to selected version and reinstall previous packages
 node-upgrade() {
-    prev_ver=\$(nvm current)
-    nvm install 16
-    nvm reinstall-packages "\$prev_ver"
+    new_version=\${1:?"Please specify a version to upgrade to. Example: node-upgrade 16"}
+    nvm install "\$new_version" --reinstall-packages-from=current
+    nvm alias default "\$new_version"
     # nvm uninstall "\$prev_ver"
     nvm cache clear
 }
@@ -228,13 +228,13 @@ export NVM_DIR="\$HOME/.nvm"
 
 # Node
 # Increases the default memory limit for Node, so larger Anglar prjects can be built
-export NODE_OPTIONS=--max_old_space_size=8192
+export NODE_OPTIONS=--max_old_space_size=12000
 
-# Update Node 16 and reinstall previous packages
+# Update Node to selected version and reinstall previous packages
 node-upgrade() {
-    prev_ver=\$(nvm current)
-    nvm install 16
-    nvm reinstall-packages "\$prev_ver"
+    readonly new_version=\${1:?"Please specify a version to upgrade to. Example: node-upgrade 16"}
+    nvm install "\$new_version" --reinstall-packages-from=current
+    nvm alias default "\$new_version"
     # nvm uninstall "\$prev_ver"
     nvm cache clear
 }
