@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="v3.2.0"
+VERSION="v3.3.0"
 #===============================================================================
 # title           setup-new-computer.sh
 # author          Joel Kesler 
@@ -161,7 +161,7 @@ export NODE_OPTIONS=--max_old_space_size=12000
 
 # Update Node to selected version and reinstall previous packages
 node-upgrade() {
-    new_version=\${1:?"Please specify a version to upgrade to. Example: node-upgrade 16"}
+    new_version=\${1:?"Please specify a version to upgrade to. Example: node-upgrade 18"}
     nvm install "\$new_version" --reinstall-packages-from=current
     nvm alias default "\$new_version"
     # nvm uninstall "\$prev_ver"
@@ -232,7 +232,7 @@ export NODE_OPTIONS=--max_old_space_size=12000
 
 # Update Node to selected version and reinstall previous packages
 node-upgrade() {
-    readonly new_version=\${1:?"Please specify a version to upgrade to. Example: node-upgrade 16"}
+    readonly new_version=\${1:?"Please specify a version to upgrade to. Example: node-upgrade 18"}
     nvm install "\$new_version" --reinstall-packages-from=current
     nvm alias default "\$new_version"
     # nvm uninstall "\$prev_ver"
@@ -487,7 +487,7 @@ printHeading "Installing Node and Angular CLI through NVM"
         [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     printDivider
         echo "Installing Node..."
-        nvm install 16
+        nvm install 18
     printStep "Angular CLI"             "npm install --location=global @angular/cli"
     printStep "NX"                      "npm install --location=global nx"
     printStep "Husky"                   "npm install --location=global husky"
