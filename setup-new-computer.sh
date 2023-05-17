@@ -227,7 +227,7 @@ export NVM_DIR="\$HOME/.nvm"
     source "\$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Node
-# Increases the default memory limit for Node, so larger Anglar prjects can be built
+# Increases the default memory limit for Node, so larger Angular projects can be built
 export NODE_OPTIONS=--max_old_space_size=12000
 
 # Update Node to selected version and reinstall previous packages
