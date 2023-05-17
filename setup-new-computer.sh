@@ -30,12 +30,12 @@ README="https://github.com/vendasta/setup-new-computer-script#post-installation-
 
 # IDEs to make availabe. Please also adjust code to brew cask install
 options[0]="Visual Studio Code";    devtoolchoices[0]="+"
-options[1]="Jetbrains Toolbox";     devtoolchoices[6]=""
-options[2]="Pycharm";               devtoolchoices[1]=""
-options[3]="Goland";                devtoolchoices[2]=""
-options[4]="Webstorm";              devtoolchoices[3]=""
-options[5]="Sublime Text";          devtoolchoices[4]=""
-options[6]="iTerm2";                devtoolchoices[5]=""
+options[1]="Jetbrains Toolbox";     devtoolchoices[1]=""
+options[2]="Pycharm";               devtoolchoices[2]=""
+options[3]="Goland";                devtoolchoices[3]=""
+options[4]="Webstorm";              devtoolchoices[4]=""
+options[5]="Sublime Text";          devtoolchoices[5]=""
+options[6]="iTerm2";                devtoolchoices[6]=""
 
 
 #===============================================================================
