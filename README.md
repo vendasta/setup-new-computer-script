@@ -422,10 +422,10 @@ gcloud components install docker-credential-gcr --quiet
 ### Applications
 
 <details>
-  <summary>Slack</summary>
+  <summary>Google Chat</summary>
   
 ```sh
-brew install --cask slack
+brew install --cask google-chat
 ```
 </details>
 
