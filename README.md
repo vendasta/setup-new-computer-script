@@ -422,15 +422,6 @@ gcloud components install docker-credential-gcr --quiet
 ### Applications
 
 <details>
-  <summary>Slack</summary>
-  
-```sh
-brew install --cask slack
-```
-</details>
-
-
-<details>
   <summary>Firefox</summary>
   
 ```sh
