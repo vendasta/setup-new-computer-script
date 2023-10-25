@@ -388,13 +388,6 @@ printDivider
 # Install  Apps
 printHeading "Installing Applications"
 
-    if [[ -d "/Applications/Slack.app" ]]; then
-        printDivider
-        echo "✔ Slack already installed. Skipping"
-    else
-        printStep "Slack"                     "brew install --cask slack"
-    fi
-
     if [[ -d "/Applications/Firefox.app" ]]; then
         printDivider
         echo "✔ Firefox already installed. Skipping"
