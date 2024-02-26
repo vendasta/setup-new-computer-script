@@ -85,15 +85,15 @@ As Mac OS has recently removed the bundled copy of Python 2.7, please see [this 
 **Installing and Upgrading Node and NPM versions**\
 There is a handy command in your `.bash_profile` and `.zsh_profile` that will automatically install your chosen version of Node and NPM, re-install any global npm packages (like angular cli), and set the newly installed version as default.
 
-We use Node v18 at Vendasta. To upgrade to the latest version of Node 18, re-install global npm packages, and set it as default, run the following command:
+We use Node v20 at Vendasta. To upgrade to the latest version of Node 20, re-install global npm packages, and set it as default, run the following command:
 ```sh
-node-upgrade 18
+node-upgrade 20
 ```
 
 If you wish to install a version of node without reinstalling all global packages or setting it to be default, you can use NVM directly ([Official docs][nvm docs]):
 ```sh
 # Install a specific version of Node
-nvm install 14      # or 10.10.0, 8.9.1, etc
+nvm install 18      # or 10.10.0, 8.9.1, etc
 ```
 
 <br>
@@ -108,7 +108,7 @@ nvm use node        # "node" is an alias for the latest version
 nvm use --lts
  
 # To switch to a specific verison of Node
-nvm use 11          # or 10.10.0, 8.9.1, etc
+nvm use 18          # or 10.10.0, 8.9.1, etc
 ```
 
 [nvm docs]: https://github.com/nvm-sh/nvm/blob/master/README.md#usage
@@ -202,7 +202,7 @@ export NODE_OPTIONS=--max_old_space_size=12000
 
 # Update Node to selected version and reinstall previous packages
 node-upgrade() {
-    new_version=${1:?"Please specify a version to upgrade to. Example: node-upgrade 18"}
+    new_version=${1:?"Please specify a version to upgrade to. Example: node-upgrade 20"}
     nvm install "$new_version" --reinstall-packages-from=current
     nvm alias default "$new_version"
     # nvm uninstall "$prev_ver"
@@ -268,7 +268,7 @@ export NODE_OPTIONS=--max_old_space_size=12000
 
 # Update Node to selected version and reinstall previous packages
 node-upgrade() {
-    readonly new_version=${1:?"Please specify a version to upgrade to. Example: node-upgrade 18"}
+    readonly new_version=${1:?"Please specify a version to upgrade to. Example: node-upgrade 20"}
     nvm install "$new_version" --reinstall-packages-from=current
     nvm alias default "$new_version"
     # nvm uninstall "$prev_ver"
@@ -359,7 +359,7 @@ getLastestNVM() {
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/$(getLastestNVM)/install.sh | bash
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-nvm install 18
+nvm install 20
 npm install --location=global @angular/cli
 npm install --location=global nx
 npm install --location=global husky
@@ -705,7 +705,7 @@ This script helps new developers at Vendasta setup their laptops quicker, lettin
 I have tried to make this script simple and useful. You will want to customize the installation and configuration to match the tools and services you use at your company.
 	   
 - At Vendasta, we are using Go, Angular, and Google Cloud. You most likely do not use all of these, so remove, change, and tweak to meet your needs.
-- We lock our Node version at 18 (using NVM) for best compatibility with Angular and NX. You will likely want to change this. 
+- We lock our Node version at 20 (using NVM) for best compatibility with Angular and NX. You will likely want to change this. 
 - To customize the [welcome logo](https://github.com/vendasta/setup-new-computer-script/blob/47b7c97f21b293e143a0566cafecec2cfc69c528/setup-new-computer.sh#L74-L90) and add a bit of style, I used the handy [Text to ASCII Art Generator](https://patorjk.com/software/taag/#p=testall&f=Isometric1&t=Vendasta)
 - When you update the script, remember to update the readme "What's Installed" section too
 - Be sure to update both the `.bash_profile` and `.zprofile`
