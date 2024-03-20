@@ -1,8 +1,9 @@
-# Setup a New Dev Computer - For Designers
-
 > [!NOTE]
-> This is a simplified version for designers who don't need things like Go or GCP
+> This is a simplified version for designers who don't need things like Go or GCP.
+> For the full script, check out https://github.com/vendasta/setup-new-computer-script/
 
+
+# Setup a New Dev Computer - For Designers!
 
 This script will help with the quick setup and installation of tools and applications for new developers at Vendasta. Tested in Mac OS 10.14 to 12. This script works on both Intel and M1/M2 Macs. 
 
