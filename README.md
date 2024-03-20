@@ -20,7 +20,7 @@ Looking to use this script at your own company? Check out the [tips for using th
 
 Paste the command below in a Mac OS Terminal:
 ```
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/vendasta/setup-new-computer-script/master/setup-new-computer.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/vendasta/setup-new-computer-script/for-designers/setup-new-computer.sh)"
 ```
 
 ## Manual Install Instructions
