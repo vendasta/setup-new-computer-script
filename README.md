@@ -55,14 +55,6 @@ After you have run the script, please complete the following steps to finish set
    [generate key]: https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
    [add to github]: https://help.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account
    
-   <br>
-
-2. **Vendasta specific tools**\
-   Follow our onboarding document to complete your setup:
-   - [Onboarding New Developers - Setup New Developer’s Computer - Next Steps][nextsteps]
-   
-   [nextsteps]: https://vendasta.jira.com/wiki/spaces/RD/pages/199032984/Onboarding+New+Developers#New-Dev%5BhardBreak%5DSetup-New-Developer%E2%80%99s-Computer-with-a-script
-
 <br><br>
 
 
