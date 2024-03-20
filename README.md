@@ -81,11 +81,6 @@ compaudit | xargs chmod g-w
 
 <br>
 
-**Setting Up Pycharm with Python 2.7**\
-As Mac OS has recently removed the bundled copy of Python 2.7, please see [this help document on working with our Legacy Appengine projects](https://vendasta.jira.com/wiki/spaces/RD/pages/1688469847/Pycharm+Setup+for+Legacy+Appengine+Python+2.7)
-
-<br>
-
 
 **Installing and Upgrading Node and NPM versions**\
 There is a handy command in your `.bash_profile` and `.zsh_profile` that will automatically install your chosen version of Node and NPM, re-install any global npm packages (like angular cli), and set the newly installed version as default.
@@ -181,20 +176,6 @@ if type brew &>/dev/null; then
   fi
 fi
 
-# Google Cloud SDK
-[ -e "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc" ] && 
-	source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc"
-[ -e "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc" ] && 
-	source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc"
-
-# Golang
-export GOPRIVATE="github.com/vendasta"
-export GOPROXY="direct"
-export GO111MODULE="on"
-export GOPATH=$HOME/go
-export GOBIN=$GOPATH/bin
-export PATH=$PATH:$GOBIN
-
 # NVM
 # This needs to be after "Setting up Path for Homebrew" to override Homebrew Node
 export NVM_DIR="$HOME/.nvm"
@@ -249,17 +230,6 @@ autoload -U +X compinit && compinit
 autoload -U +X bashcompinit && bashcompinit
 fpath=(/usr/local/share/zsh-completions $fpath)
 
-# Google Cloud SDK
-[ -e "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc" ] &&     source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
-[ -e "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc" ] &&     source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
-
-# Golang
-export GOPRIVATE="github.com/vendasta"
-export GOPROXY="direct"
-export GO111MODULE="on"
-export GOPATH=$HOME/go
-export GOBIN=$GOPATH/bin
-export PATH=$PATH:$GOBIN
 
 # NVM 
 # This needs to be after "Setting up Path for Homebrew" to override Homebrew Node
@@ -339,16 +309,6 @@ node-upgrade() {
  
  
  ### Languages
- <details>
-  <summary>Go</summary>
-  
-   ```sh
-   mkdir -p ~/go
-   brew install go
-   go env -w GOPRIVATE="github.com/vendasta"
-   ```
-</details>
-
 
 <details>
   <summary>Node (from nvm, with npm, nx, husky, Angular CLI, Node-Sass, and Node-Gyp)</summary>
@@ -392,76 +352,6 @@ export NVM_DIR="$HOME/.nvm"
 </details>
 
 
-<details>
-  <summary>Ruby</summary>
-  
-```sh
-brew install ruby
-```
-</details>
-	   
-
-<details>
-  <summary>Google Cloud Components</summary>
-  
-```sh
-brew install --cask google-cloud-sdk
-source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc"
-source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc"
-if [ -e ~/google-cloud-sdk ]; then
-    echo "✔ ~/google-cloud-sdk exists. Skipping"
-else
-    echo "✔ Creating ~/google-cloud-sdk symlink"
-    ln -s "$(brew --prefix)/Caskroom/google-cloud-sdk" ~/google-cloud-sdk &>/dev/null
-    # make a convenience symlink at the install path for google-cloud-sdk when installed manually
-fi
-gcloud components install app-engine-go --quiet
-gcloud components install app-engine-python --quiet
-gcloud components install app-engine-python-extras --quiet
-gcloud components install kubectl --quiet
-gcloud components install docker-credential-gcr --quiet
-```
-</details>
-
-
-### Applications
-
-<details>
-  <summary>Firefox</summary>
-  
-```sh
-brew install --cask firefox
-```
-</details>
-
-
-<details>
-  <summary>Google Chrome</summary>
-  
-```sh
-brew install --cask google-chrome
-```
-</details>
-
-
-<details>
-  <summary>Docker for Mac</summary>
-
-```sh
-brew install --cask docker
-```
-</details>
-
-
-<details>
-  <summary>Postman</summary>
-
-```sh
-brew install --cask postman
-```
-</details>
-
-
 ### Optional IDEs and Tools
 
 <details>
@@ -469,60 +359,6 @@ brew install --cask postman
   
 ```sh
 brew install --cask visual-studio-code
-```
-</details>
-
-
-<details>
-  <summary>Jetbrains Toolbox</summary>
-  
-```sh
-brew install --cask jetbrains-toolbox
-```
-</details>
-
-
-<details>
-  <summary>Pycharm</summary>
-  
-```sh
-brew install --cask pycharm
-```
-</details>
-
-
-<details>
-  <summary>Goland</summary>
-  
-```sh
-brew install --cask goland
-```
-</details>
-
-
-<details>
-  <summary>WebStorm</summary>
-  
-```sh
-brew install --cask webstorm
-```
-</details>
-
-
-<details>
-  <summary>Sublime Text</summary>
-  
-```sh
-brew install --cask sublime-text
-```
-</details>
-
-
-<details>
-  <summary>iTerm2</summary>
-  
-```sh
-brew install --cask iterm2
 ```
 </details>
 
@@ -566,35 +402,10 @@ defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 </details>
 
 <details>
-  <summary>Typing: Disable press-and-hold for keys in favor of key repeat</summary>
-  
-```sh
-defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
-```
-</details>
-
-<details>
-  <summary>Finder: Show status bar and path bar</summary>
-  
-```sh
-defaults write com.apple.finder ShowStatusBar -bool true
-defaults write com.apple.finder ShowPathbar -bool true	
-```
-</details>
-
-<details>
   <summary>Finder: Disable the warning when changing a file extension</summary>
   
 ```sh
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
-```
-</details>
-
-<details>
-  <summary>Finder: Show the ~/Library folder</summary>
-  
-```sh
-chflags nohidden ~/Library
 ```
 </details>
 
@@ -607,48 +418,6 @@ defaults write com.apple.Safari IncludeDevelopMenu -bool true
 defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
 defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
 defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
-```
-</details>
-
-<details>
-  <summary>Chrome: Disable the all too sensitive backswipe on Trackpads and Magic Mice</summary>
-
-```sh
-# Note: The chrome defaults can cause your Chrome browser to display a message stating
-# that Chrome is "Managed by your organization" when it isn't
-# 
-# To view policies that are affecting this message, view the following pages:
-# chrome://policy and chrome://management/
-# 
-# To quickly remove Chrome default overrides, run the following commands:
-# defaults delete com.google.Chrome
-# defaults delete com.google.Chrome.canary
-#
-defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
-defaults write com.google.Chrome.canary AppleEnableSwipeNavigateWithScrolls -bool false
-defaults write com.google.Chrome AppleEnableMouseSwipeNavigateWithScrolls -bool false
-defaults write com.google.Chrome.canary AppleEnableMouseSwipeNavigateWithScrolls -bool false	
-```
-</details>
-
-<details>
-  <summary>Chrome: Use the system print dialog and expand dialog by default</summary>
-  
-```sh
-# Note: The chrome defaults can cause your Chrome browser to display a message stating
-# that Chrome is "Managed by your organization" when it isn't
-# 
-# To view policies that are affecting this message, view the following pages:
-# chrome://policy and chrome://management/
-# 
-# To quickly remove Chrome default overrides, run the following commands:
-# defaults delete com.google.Chrome
-# defaults delete com.google.Chrome.canary
-#
-defaults write com.google.Chrome DisablePrintPreview -bool true
-defaults write com.google.Chrome.canary DisablePrintPreview -bool true
-defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true
-defaults write com.google.Chrome.canary PMPrintingExpandedStateForPrint2 -bool true
 ```
 </details>
 
@@ -705,7 +474,7 @@ fi
 
 ## Tips for using the script at your own company
 
-This script helps new developers at Vendasta setup their laptops quicker, letting them hit the ground running. Before, it could take 2-5 days to install and configure everything, leading to a frustrating first week. With this script and fast internet, the process can be done in under 30 min.
+This script helps designers who whish to learn how to code at Vendasta setup their laptops quicker, letting them hit the ground running. Before, it could take 2-5 days to install and configure everything, leading to a frustrating first week. With this script and fast internet, the process can be done in under 30 min.
 	   
 I have tried to make this script simple and useful. You will want to customize the installation and configuration to match the tools and services you use at your company.
 	   
