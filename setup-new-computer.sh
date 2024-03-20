@@ -23,7 +23,7 @@ VERSION="v3.4.0 - for designers"
 #      Use the email and name you use for Github
 #
 #   5. Follow the Post Installation Instructions in the Readme:
-README="https://github.com/vendasta/setup-new-computer-script#post-installation-instructions"
+README="https://github.com/vendasta/setup-new-computer-script/tree/for-designers#post-installation-instructions"
 #  
 #===============================================================================
 
