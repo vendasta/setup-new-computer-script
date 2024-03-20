@@ -13,10 +13,6 @@ The script will create/modify `.bash_profile` and `.zprofile` with path and auto
 
 <br>
 
-Looking to use this script at your own company? Check out the [tips for using the script at your own company](#tips-for-using-the-script-at-your-own-company) section.
-
-<br>
-
 ## Quick Install Instructions
 
 Paste the command below in a Mac OS Terminal:
