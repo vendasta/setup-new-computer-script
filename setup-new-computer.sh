@@ -229,6 +229,8 @@ EOT
 #  Installer: Set up shell profiles
 #===============================================================================
 
+# Show ascii art
+printLogo
 
 # Create .bash_profile and .zprofile if they dont exist
 printHeading "Prep Bash and Zsh"
