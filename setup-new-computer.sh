@@ -1,8 +1,8 @@
 #!/bin/bash
 
-VERSION="v3.4.0"
+VERSION="v3.4.0 - for designers"
 #===============================================================================
-# title           setup-new-computer.sh
+# title           setup-new-computer.sh for Designers
 # author          Joel Kesler 
 #                 https://github.com/joelkesler
 #===============================================================================
@@ -27,15 +27,6 @@ README="https://github.com/vendasta/setup-new-computer-script#post-installation-
 #  
 #===============================================================================
 
-
-# IDEs to make availabe. Please also adjust code to brew cask install
-options[0]="Visual Studio Code";    devtoolchoices[0]="+"
-options[1]="Jetbrains Toolbox";     devtoolchoices[1]=""
-options[2]="Pycharm";               devtoolchoices[2]=""
-options[3]="Goland";                devtoolchoices[3]=""
-options[4]="Webstorm";              devtoolchoices[4]=""
-options[5]="Sublime Text";          devtoolchoices[5]=""
-options[6]="iTerm2";                devtoolchoices[6]=""
 
 
 #===============================================================================
@@ -89,17 +80,6 @@ cat << "EOT"
 EOT
 }
 
-showIDEMenuLoop() {
-    # from https://serverfault.com/a/777849
-    printLogo
-    printHeading "Select Optional IDEs and Tools"
-    printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
-        echo ""
-        for NUM in "${!options[@]}"; do
-            echo "[""${devtoolchoices[NUM]:- }""]" $(( NUM+1 ))") ${options[NUM]}"
-        done
-        echo ""
-}
 
 writetoBashProfile() {
 cat << EOT >> ~/.bash_profile
@@ -133,20 +113,6 @@ if type brew &>/dev/null; then
   fi
 fi
 
-# Google Cloud SDK
-[ -e "\$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc" ] && \
-    source "\$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc"
-[ -e "\$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc" ] && \
-    source "\$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc"
-
-# Golang
-export GOPRIVATE="github.com/vendasta"
-export GOPROXY="direct"
-export GO111MODULE="on"
-export GOPATH=\$HOME/go
-export GOBIN=\$GOPATH/bin
-export PATH=\$PATH:\$GOBIN
-
 # NVM
 # This needs to be after "Setting up Path for Homebrew" to override Homebrew Node
 export NVM_DIR="\$HOME/.nvm"
@@ -162,7 +128,7 @@ export NODE_OPTIONS=--max_old_space_size=12000
 # Update Node to selected version and reinstall previous packages
 node-upgrade() {
     new_version=\${1:?"Please specify a version to upgrade to. Example: node-upgrade 20"}
-    nvm install "\$new_version" --reinstall-packages-from=current
+    nvm install "\$new_version" --reinstall-packages-from=current --latest-npm
     nvm alias default "\$new_version"
     # nvm uninstall "\$prev_ver"
     nvm cache clear
@@ -204,20 +170,6 @@ autoload -U +X compinit && compinit
 autoload -U +X bashcompinit && bashcompinit
 fpath=(/usr/local/share/zsh-completions \$fpath)
 
-# Google Cloud SDK
-[ -e "\$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc" ] && \
-    source "\$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
-[ -e "\$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc" ] && \
-    source "\$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
-
-# Golang
-export GOPRIVATE="github.com/vendasta"
-export GOPROXY="direct"
-export GO111MODULE="on"
-export GOPATH=\$HOME/go
-export GOBIN=\$GOPATH/bin
-export PATH=\$PATH:\$GOBIN
-
 # NVM 
 # This needs to be after "Setting up Path for Homebrew" to override Homebrew Node
 export NVM_DIR="\$HOME/.nvm"
@@ -233,7 +185,7 @@ export NODE_OPTIONS=--max_old_space_size=12000
 # Update Node to selected version and reinstall previous packages
 node-upgrade() {
     readonly new_version=\${1:?"Please specify a version to upgrade to. Example: node-upgrade 20"}
-    nvm install "\$new_version" --reinstall-packages-from=current
+    nvm install "\$new_version" --reinstall-packages-from=current --latest-npm
     nvm alias default "\$new_version"
     # nvm uninstall "\$prev_ver"
     nvm cache clear
@@ -270,34 +222,6 @@ export NVM_DIR="\$HOME/.nvm"
 
 EOT
 }
-
-
-#===============================================================================
-# Installer: Settings
-#===============================================================================
-
-
-# Show IDE Selection Menu
-clear
-while 
-    showIDEMenuLoop && \
-    read -r -e -p "Enable or Disable by typing number. Hit ENTER to continue " \
-    -n1 SELECTION && [[ -n "$SELECTION" ]]; \
-do
-    clear
-    if [[ "$SELECTION" == *[[:digit:]]* && $SELECTION -ge 1 && $SELECTION -le ${#options[@]} ]]; then
-        (( SELECTION-- ))
-        if [[ "${devtoolchoices[SELECTION]}" == "+" ]]; then
-            devtoolchoices[SELECTION]=""
-        else
-            devtoolchoices[SELECTION]="+"
-        fi
-            ERROR=" "
-    else
-        ERROR="Invalid option: $SELECTION"
-    fi
-done
-printDivider
 
 
 
@@ -379,7 +303,6 @@ printHeading "Installing Brew Packages"
     printStep "Bash"                        "brew install bash"
     printStep "bash-completion"             "brew install bash-completion"
     printStep "zsh-completions"             "brew install zsh-completions"
-    printStep "Ruby"                        "brew install ruby"
     printStep "Git"                         "brew install git"
 printDivider
 
@@ -388,75 +311,13 @@ printDivider
 # Install  Apps
 printHeading "Installing Applications"
 
-    if [[ -d "/Applications/Firefox.app" ]]; then
-        printDivider
-        echo "✔ Firefox already installed. Skipping"
-    else
-        printStep "Firefox"                     "brew install --cask firefox"
-    fi
 
-    if [[ -d "/Applications/Google Chrome.app" ]]; then
+    if [[ -d "/Applications/Visual Studio Code.app" ]]; then
         printDivider
-        echo "✔ Google Chrome already installed. Skipping"
+        echo "✔ Visual Studio Code already installed. Skipping"
     else
-        printStep "Google Chrome"               "brew install --cask google-chrome"
-    fi
-
-    if [[ -d "/Applications/Docker.app" ]]; then
-        printDivider
-        echo "✔ Docker already installed. Skipping"
-    else
-        printStep "Docker for Mac"              "brew install --cask docker"
-    fi
-
-    if [[ -d "/Applications/Postman.app" ]]; then
-        printDivider
-        echo "✔ Postman already installed. Skipping"
-    else
-        printStep "Postman"                     "brew install --cask postman"
-    fi
-
-    # Install Visual Studio Code
-    if [[ "${devtoolchoices[0]}" == "+" ]]; then
         printStep "Visual Studio Code"      "brew install --cask visual-studio-code"
     fi
-    # Install Jetbrains Toolbox
-    if [[ "${devtoolchoices[1]}" == "+" ]]; then
-        printStep "Jetbrains Toolbox"       "brew install --cask jetbrains-toolbox"
-    fi
-    # Install PyCharm
-    if [[ "${devtoolchoices[2]}" == "+" ]]; then
-        printStep "PyCharm"                 "brew install --cask pycharm"
-    fi
-    # Install Goland
-    if [[ "${devtoolchoices[3]}" == "+" ]]; then
-        printStep "Goland"                  "brew install --cask goland"
-    fi
-    # Install WebStorm
-    if [[ "${devtoolchoices[4]}" == "+" ]]; then
-        printStep "WebStorm"                "brew install --cask webstorm"
-    fi
-    # Install Sublime Text
-    if [[ "${devtoolchoices[5]}" == "+" ]]; then
-        printStep "Sublime Text"            "brew install --cask sublime-text"
-    fi
-    # Install iTerm2
-    if [[ "${devtoolchoices[6]}" == "+" ]]; then
-        printStep "iTerm2"                  "brew install --cask iterm2"
-    fi
-printDivider
-
-
-#Install Go
-# TODO: check with @cpenner about current best way to install
-printHeading "Installing Go"
-    printDivider
-        echo "✔ Creating Go directory in home folder [~/go]"
-            mkdir -p ~/go
-    printStep "Go"            "brew install go"
-    printDivider
-        echo "✔ Setting GOPRIVATE enviromental variable"
-            go env -w GOPRIVATE="github.com/vendasta"
 printDivider
 
 
@@ -480,7 +341,7 @@ printHeading "Installing Node and Angular CLI through NVM"
         [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     printDivider
         echo "Installing Node..."
-        nvm install 20
+        nvm install 20 --latest-npm
     printStep "Angular CLI"             "npm install --location=global @angular/cli"
     printStep "NX"                      "npm install --location=global nx"
     printStep "Husky"                   "npm install --location=global husky"
@@ -497,29 +358,6 @@ printHeading "Installing Node and Angular CLI through NVM"
             writetoHuskrc
             echo "✔ Add nvm to .huskyrc"
         fi
-printDivider
-
-
-# Install Google Cloud SDK and Components
-printHeading "Install Google Cloud SDK and Components"
-    printStep "Google Cloud SDK"        "brew install --cask google-cloud-sdk"
-    printDivider
-        echo "✔ Prepping Autocompletes and Paths"
-        source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc"
-        source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc"
-    printDivider
-        if [ -e ~/google-cloud-sdk ]; then
-            echo "✔ ~/google-cloud-sdk exists. Skipping"
-        else
-            echo "✔ Creating ~/google-cloud-sdk symlink"
-            ln -s "$(brew --prefix)/Caskroom/google-cloud-sdk" ~/google-cloud-sdk &>/dev/null
-            # make a convenience symlink at the install path for google-cloud-sdk when installed manually
-        fi
-    printStep "App Engine - Go"             "gcloud components install app-engine-go --quiet"
-    printStep "App Engine - Python"         "gcloud components install app-engine-python --quiet"
-    printStep "App Engine - Python Extras"  "gcloud components install app-engine-python-extras --quiet"
-    printStep "Kubectl"                     "gcloud components install kubectl --quiet"
-    printStep "Docker Credentials"          "gcloud components install docker-credential-gcr --quiet"
 printDivider
 
 
@@ -540,17 +378,10 @@ printHeading "System Tweaks"
     echo "✔ Typing: Disable smart quotes and dashes as they cause problems when typing code"
         defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
         defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
-    echo "✔ Typing: Disable press-and-hold for keys in favor of key repeat"
-        defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
     printDivider
 
-    echo "✔ Finder: Show status bar and path bar"
-        defaults write com.apple.finder ShowStatusBar -bool true
-        defaults write com.apple.finder ShowPathbar -bool true
     echo "✔ Finder: Disable the warning when changing a file extension"
         defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
-    echo "✔ Finder: Show the ~/Library folder"
-        chflags nohidden ~/Library
     printDivider
         
     echo "✔ Safari: Enable Safari’s Developer Settings"
@@ -561,27 +392,6 @@ printHeading "System Tweaks"
         defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
     printDivider
     
-    # Note: The chrome defaults can cause your Chrome browser to display a message stating
-    # that Chrome is "Managed by your organization" when it isn't
-    # 
-    # To view policies that are affecting this message, view the following pages:
-    # chrome://policy and chrome://management/
-    # 
-    # To quickly remove Chrome default overrides, run the following commands:
-    # defaults delete com.google.Chrome
-    # defaults delete com.google.Chrome.canary
-    #
-    echo "✔ Chrome: Disable the all too sensitive backswipe on Trackpads and Magic Mice"
-        defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
-        defaults write com.google.Chrome.canary AppleEnableSwipeNavigateWithScrolls -bool false
-        defaults write com.google.Chrome AppleEnableMouseSwipeNavigateWithScrolls -bool false
-        defaults write com.google.Chrome.canary AppleEnableMouseSwipeNavigateWithScrolls -bool false
-    echo "✔ Chrome: Use the system print dialog and expand dialog by default"
-        defaults write com.google.Chrome DisablePrintPreview -bool true
-        defaults write com.google.Chrome.canary DisablePrintPreview -bool true
-        defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true
-        defaults write com.google.Chrome.canary PMPrintingExpandedStateForPrint2 -bool true
-printDivider
 
 
 
