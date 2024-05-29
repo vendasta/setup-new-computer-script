@@ -404,9 +404,15 @@ printHeading "Installing Applications"
 
     if [[ -d "/Applications/Docker.app" ]]; then
         printDivider
-        echo "✔ Docker already installed. Skipping"
+        printStep "Uninstall Docker desktop for Mac"              "brew uninstall --cask docker"
+        echo ""
+    fi
+
+    if [[ -d "/Applications/Rancher Desktop.app" ]]; then
+            printDivider
+            echo "✔ Rancher already installed. Skipping"
     else
-        printStep "Docker for Mac"              "brew install --cask docker"
+        printStep "Rancher Desktop (Docker Desktop alternative)"              "brew install --cask rancher"
     fi
 
     if [[ -d "/Applications/Postman.app" ]]; then

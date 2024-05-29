@@ -440,10 +440,10 @@ brew install --cask google-chrome
 
 
 <details>
-  <summary>Docker for Mac</summary>
+  <summary>Rancher Desktop (Docker Desktop alternative)</summary>
 
 ```sh
-brew install --cask docker
+brew install --cask rancher
 ```
 </details>
 
