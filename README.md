@@ -346,7 +346,7 @@ node-upgrade() {
 
 
 <details>
-  <summary>Node (from nvm, with npm, nx, husky, Angular CLI, Node-Sass, and Node-Gyp)</summary>
+  <summary>Node (from nvm, with npm, nx, husky, Angular CLI, Sass, and Node-Gyp)</summary>
   
 ```sh
 getLastestNVM() {
@@ -363,7 +363,7 @@ nvm install 20
 npm install --location=global @angular/cli
 npm install --location=global nx
 npm install --location=global husky
-npm install --location=global node-sass
+npm install --location=global sass
 npm install --location=global node-gyp
 ```
   We will also create a new file called `~/.huskyrc` and fill it with:
