@@ -490,7 +490,7 @@ printHeading "Installing Node and Angular CLI through NVM"
     printStep "Angular CLI"             "npm install --location=global @angular/cli"
     printStep "NX"                      "npm install --location=global nx"
     printStep "Husky"                   "npm install --location=global husky"
-    printStep "Node Sass"               "npm install --location=global node-sass"
+    printStep "Node Sass"               "npm install --location=global sass"
     printStep "Node Gyp"                "npm install --location=global node-gyp"
     printDivider
         echo "✔ Touch ~/.huskyrc"
