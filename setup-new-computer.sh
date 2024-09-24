@@ -493,6 +493,9 @@ printHeading "Installing Node and Angular CLI through NVM"
     printStep "Node Sass"               "npm install --location=global sass"
     printStep "Node Gyp"                "npm install --location=global node-gyp"
     printDivider
+        echo "✔ Ensure ~/.config/husky directory exists"
+            mkdir -p ~/.config/husky
+    printDivider
         echo "✔ Touch ~/.config/husky/init.sh"
             touch ~/.config/husky/init.sh
     printDivider
