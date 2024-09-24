@@ -248,8 +248,8 @@ EOT
 }
 
 
-writetoHuskrc() {
-cat << EOT >> ~/.huskyrc
+writetoHuskyInit() {
+cat << EOT >> ~/.config/husky/init.sh
 
 
 # --------------------------------------------------------------------
@@ -493,15 +493,18 @@ printHeading "Installing Node and Angular CLI through NVM"
     printStep "Node Sass"               "npm install --location=global sass"
     printStep "Node Gyp"                "npm install --location=global node-gyp"
     printDivider
-        echo "✔ Touch ~/.huskyrc"
-            touch ~/.huskyrc
+        echo "✔ Ensure ~/.config/husky directory exists"
+            mkdir -p ~/.config/husky
+    printDivider
+        echo "✔ Touch ~/.config/husky/init.sh"
+            touch ~/.config/husky/init.sh
     printDivider
         # Husky profile
-        if grep --quiet "nvm" ~/.huskyrc; then
-            echo "✔ .huskyrc already includes nvm. Skipping"
+        if grep --quiet "nvm" ~/.config/husky/init.sh; then
+            echo "✔ ~/.config/husky/init.sh already includes nvm. Skipping"
         else
-            writetoHuskrc
-            echo "✔ Add nvm to .huskyrc"
+            writetoHuskyInit
+            echo "✔ Add nvm to ~/.config/husky/init.sh"
         fi
 printDivider
 
