@@ -36,6 +36,7 @@ options[3]="Goland";                devtoolchoices[3]=""
 options[4]="Webstorm";              devtoolchoices[4]=""
 options[5]="Sublime Text";          devtoolchoices[5]=""
 options[6]="iTerm2";                devtoolchoices[6]=""
+options[7]="Cursor";                devtoolchoices[7]=""
 
 
 #===============================================================================
@@ -449,6 +450,10 @@ printHeading "Installing Applications"
     # Install iTerm2
     if [[ "${devtoolchoices[6]}" == "+" ]]; then
         printStep "iTerm2"                  "brew install --cask iterm2"
+    fi
+    # Install Cursor (AI-powered IDE)
+    if [[ "${devtoolchoices[7]}" == "+" ]]; then
+        printStep "Cursor"                  "brew install --cask cursor"
     fi
 printDivider
 

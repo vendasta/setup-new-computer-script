@@ -522,6 +522,15 @@ brew install --cask iterm2
 </details>
 
 
+<details>
+  <summary>Cursor</summary>
+  
+```sh
+brew install --cask cursor
+```
+</details>
+
+
 ### System Tweaks
 
 <details>
