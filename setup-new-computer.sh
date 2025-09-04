@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="v4.6.2"
+VERSION="v4.7.0"
 #===============================================================================
 # title           setup-new-computer.sh
 # author          Joel Kesler 
@@ -602,7 +602,6 @@ printHeading "Installing Enhanced CLI Utilities"
     printStep "bat (better cat)"            "brew install bat"
     printStep "fd (better find)"            "brew install fd"
     printStep "ripgrep (better grep)"       "brew install ripgrep"
-    printStep "exa (better ls)"             "brew install exa"
     printStep "tldr (simplified man)"       "brew install tldr"
     printStep "fzf (fuzzy finder)"          "brew install fzf"
     printStep "autojump"                    "brew install autojump"
@@ -610,62 +609,6 @@ printHeading "Installing Enhanced CLI Utilities"
     printStep "tmuxinator (tmux manager)"   "brew install tmuxinator"
     printStep "vim (enhanced editor)"       "brew install vim"
     printStep "figlet (ASCII art text)"     "brew install figlet"
-printDivider
-
-
-# Install logo-ls (modern ls with icons and Git integration)
-printHeading "Installing logo-ls (Enhanced ls with Icons)"
-printDivider
-    echo "Installing logo-ls using Go..."
-    if command -v go &> /dev/null; then
-        printStep "logo-ls (ls with VS Code icons)" "go install github.com/Yash-Handa/logo-ls@latest"
-        echo "✔ Setting up logo-ls aliases in shell profiles..."
-        
-        # Add aliases to bash profile if it exists
-        if [ -f ~/.bash_profile ]; then
-            if ! grep -q "logo-ls aliases" ~/.bash_profile; then
-                cat >> ~/.bash_profile << 'EOF'
-
-# logo-ls aliases (modern ls with icons and Git integration)
-alias ils='logo-ls'
-alias ila='logo-ls -A'
-alias ill='logo-ls -al'
-alias ilsg='logo-ls -D'    # with Git status
-alias ilag='logo-ls -AD'   # all files with Git status  
-alias illg='logo-ls -alD'  # long list with Git status
-EOF
-                echo "✔ Added logo-ls aliases to ~/.bash_profile"
-            else
-                echo "✔ logo-ls aliases already exist in ~/.bash_profile"
-            fi
-        fi
-        
-        # Add aliases to zsh profile if it exists
-        if [ -f ~/.zprofile ]; then
-            if ! grep -q "logo-ls aliases" ~/.zprofile; then
-                cat >> ~/.zprofile << 'EOF'
-
-# logo-ls aliases (modern ls with icons and Git integration)
-alias ils='logo-ls'
-alias ila='logo-ls -A'
-alias ill='logo-ls -al'
-alias ilsg='logo-ls -D'    # with Git status
-alias ilag='logo-ls -AD'   # all files with Git status
-alias illg='logo-ls -alD'  # long list with Git status
-EOF
-                echo "✔ Added logo-ls aliases to ~/.zprofile"
-            else
-                echo "✔ logo-ls aliases already exist in ~/.zprofile"
-            fi
-        fi
-        
-        echo "✔ logo-ls installed successfully!"
-        echo "💡 Use 'ils', 'ila', 'ill' as enhanced ls commands with VS Code icons"
-        echo "💡 Use 'ilsg', 'ilag', 'illg' for Git-aware directory listings"
-    else
-        echo "⚠️  Go not found. logo-ls installation skipped."
-        echo "   logo-ls will be available after Go is installed and PATH is reloaded."
-    fi
 printDivider
 
 
@@ -694,12 +637,6 @@ printHeading "Installing Applications"
         printStep "Chromium"                    "brew install --cask chromium"
     fi
 
-    if [[ -d "/Applications/Firefox Developer Edition.app" ]]; then
-        printDivider
-        echo "✔ Firefox Developer Edition already installed. Skipping"
-    else
-        printStep "Firefox Developer Edition"   "brew install --cask firefox-developer-edition"
-    fi
 
     if [[ -d "/Applications/Brave Browser.app" ]]; then
         printDivider
@@ -715,12 +652,6 @@ printHeading "Installing Applications"
         printStep "Docker Desktop"                 "brew install --cask docker"
     fi
 
-    if [[ -d "/Applications/Rancher Desktop.app" ]]; then
-            printDivider
-            echo "✔ Rancher Desktop already installed. Skipping"
-    else
-        printStep "Rancher Desktop (Alternative)"  "brew install --cask rancher"
-    fi
 
     if [[ -d "/Applications/Postman.app" ]]; then
         printDivider
@@ -776,14 +707,12 @@ printHeading "Installing Productivity Applications"
     printStep "Rectangle (Window Manager)"  "brew install --cask rectangle"
     printStep "Stats (System Monitor)"      "brew install --cask stats"
     printStep "Itsycal (Menu Calendar)"     "brew install --cask itsycal"
-    printStep "HyperSwitch"                 "brew install --cask hyperswitch"
     printStep "Calibre (Ebook Manager)"     "brew install --cask calibre"
     printStep "Notion"                      "brew install --cask notion"
     printStep "Enpass (Password Manager)"   "brew install --cask enpass"
     printStep "Meld (Diff Tool)"            "brew install --cask meld"
     printStep "Slack"                       "brew install --cask slack"
     printStep "Gitify (GitHub Notifications)" "brew install --cask gitify"
-    printStep "Atlassian Companion"         "brew install --cask atlassian-companion"
     printStep "ChatGPT"                     "brew install --cask chatgpt"
     printStep "Alfred 5"                    "brew install --cask alfred"
     printStep "Logi Options+"               "brew install --cask logi-options-plus"
@@ -1004,12 +933,25 @@ printDivider
 
 # Install Python Development Tools
 printHeading "Installing Python Development Tools"
+    printStep "Anaconda (Python Distribution)" "brew install --cask anaconda"
     printStep "pyenv"                       "brew install pyenv"
+    printStep "pipx (tool installer)"       "brew install pipx"
     printStep "Black (code formatter)"      "pipx install black"
     printStep "isort (import sorter)"       "pipx install isort"
     printStep "flake8 (linter)"             "pipx install flake8"
     printStep "mypy (type checker)"         "pipx install mypy"
-    printStep "pipx (tool installer)"       "brew install pipx"
+printDivider
+    echo "📋 Setting up Anaconda PATH..."
+    echo "After installation, add Anaconda to your PATH:"
+    echo 'export PATH="/opt/homebrew/anaconda3/bin:$PATH"  # For Apple Silicon'
+    echo 'export PATH="/usr/local/anaconda3/bin:$PATH"    # For Intel Macs'
+    echo ""
+    echo "💡 Anaconda includes:"
+    echo "   • Python with 1500+ packages"
+    echo "   • Jupyter Notebook & JupyterLab" 
+    echo "   • Spyder IDE"
+    echo "   • conda package manager"
+    echo "   • Data science libraries (pandas, numpy, matplotlib, scikit-learn)"
 printDivider
 
 
@@ -1115,12 +1057,18 @@ echo "   • Add to ~/.zprofile: export JAVA_HOME=\$(/usr/libexec/java_home)"
 echo "   • Restart terminal to apply"
 echo ""
 
-echo "5. ☁️ GOOGLE CLOUD AUTHENTICATION"
+echo "5. 🐍 ANACONDA PATH SETUP"  
+echo "   • Add to your shell profile (~/.zshrc or ~/.bash_profile):"
+echo "   • For Apple Silicon: export PATH=\"/opt/homebrew/anaconda3/bin:\$PATH\""
+echo "   • For Intel Macs: export PATH=\"/usr/local/anaconda3/bin:\$PATH\""
+echo ""
+
+echo "6. ☁️ GOOGLE CLOUD AUTHENTICATION"
 echo "   • Run: gcloud auth application-default login"
 echo "   • Required for Vendasta E2E tests"
 echo ""
 
-echo "6. 🏢 VENDASTA-SPECIFIC SETUP"
+echo "7. 🏢 VENDASTA-SPECIFIC SETUP"
 echo "   • Install libpostal (for Web-Crawler):"
 echo "     git clone https://github.com/openvenues/libpostal"
 echo "     cd libpostal && ./bootstrap.sh"
@@ -1131,7 +1079,7 @@ echo "   • Setup mscli:"
 echo "     Clone repository and run 'go install -mod=vendor'"
 echo ""
 
-echo "7. ✅ VERIFY INSTALLATIONS"
+echo "8. ✅ VERIFY INSTALLATIONS"
 echo "   • node --version"
 echo "   • go version"
 echo "   • python3 --version"
