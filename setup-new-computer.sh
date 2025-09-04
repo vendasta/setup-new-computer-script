@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="v4.0.0"
+VERSION="v4.4.1-CRITICAL-FIX"
 #===============================================================================
 # title           setup-new-computer.sh
 # author          Joel Kesler 
@@ -301,6 +301,83 @@ done
 printDivider
 
 
+#===============================================================================
+#  Installer: Essential Prerequisites  
+#===============================================================================
+
+
+# Install xcode cli development tools (MUST BE FIRST)
+printHeading "Installing Xcode CLI Development Tools"
+printDivider
+    echo "Installing Xcode command line tools (required for all development)..."
+    xcode-select --install && \
+        read -n 1 -r -s -p $'\n\nWhen Xcode CLI tools are installed, press ANY KEY to continue...\n\n' || \
+            printDivider && echo "✔ Xcode CLI tools already installed. Skipping"
+printDivider
+
+
+# SSH Key Setup for GitHub (SECOND - before Git operations)
+printHeading "SSH Key Setup for GitHub"
+printDivider
+    if [ -f ~/.ssh/id_ed25519 ]; then
+        echo "✔ SSH key already exists at ~/.ssh/id_ed25519"
+        echo "✔ Your public key:"
+        cat ~/.ssh/id_ed25519.pub
+    else
+        echo "Generating SSH key for GitHub..."
+        read -p 'Enter your email address for SSH key: ' ssh_email
+        
+        # Generate SSH key
+        ssh-keygen -t ed25519 -C "$ssh_email" -f ~/.ssh/id_ed25519 -N ""
+        echo "✔ SSH key generated"
+    fi
+printDivider
+    echo "✔ Starting SSH agent and adding key..."
+    eval "$(ssh-agent -s)" > /dev/null 2>&1
+    
+    # Create SSH config if it doesn't exist
+    if [ ! -f ~/.ssh/config ]; then
+        echo "✔ Creating SSH config file..."
+        mkdir -p ~/.ssh
+        cat > ~/.ssh/config << EOF
+Host github.com
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519
+EOF
+        echo "✔ SSH config created"
+    else
+        echo "✔ SSH config already exists"
+    fi
+printDivider
+    echo "✔ Adding SSH key to SSH agent..."
+    ssh-add --apple-use-keychain ~/.ssh/id_ed25519 > /dev/null 2>&1
+printDivider
+    echo "✔ Copying public key to clipboard..."
+    pbcopy < ~/.ssh/id_ed25519.pub
+    echo ""
+    tput setaf 3 # yellow
+    echo "🔑 IMPORTANT: Your SSH public key has been copied to clipboard!"
+    echo ""
+    echo "To complete GitHub setup:"
+    echo "1. Go to https://github.com/settings/ssh/new"
+    echo "2. Give your key a title (e.g., 'MacBook M3')"
+    echo "3. Paste the key (already in clipboard)"
+    echo "4. Click 'Add SSH key'"
+    echo ""
+    tput sgr0
+    read -n 1 -r -s -p "Press any key when you've added the key to GitHub..."
+    echo ""
+printDivider
+    echo "✔ Testing SSH connection to GitHub..."
+    if ssh -T git@github.com 2>&1 | grep -q "successfully authenticated"; then
+        echo "✔ SSH connection to GitHub successful!"
+    else
+        echo "⚠️  SSH connection test - if you just added the key, it may take a moment"
+        echo "   You can test later with: ssh -T git@github.com"
+    fi
+printDivider
+
 
 #===============================================================================
 #  Installer: Set up shell profiles
@@ -309,6 +386,15 @@ printDivider
 
 # Create .bash_profile and .zprofile if they dont exist
 printHeading "Prep Bash and Zsh"
+printDivider
+    echo "🛡️  Creating safety backups of existing shell configurations..."
+    timestamp=$(date +%Y%m%d_%H%M%S)
+    
+    # Backup existing shell config files
+    [ -f ~/.bashrc ] && cp ~/.bashrc ~/.bashrc.backup.$timestamp && echo "✔ Backed up ~/.bashrc"
+    [ -f ~/.bash_profile ] && cp ~/.bash_profile ~/.bash_profile.backup.$timestamp && echo "✔ Backed up ~/.bash_profile"
+    [ -f ~/.zshrc ] && cp ~/.zshrc ~/.zshrc.backup.$timestamp && echo "✔ Backed up ~/.zshrc"  
+    [ -f ~/.zprofile ] && cp ~/.zprofile ~/.zprofile.backup.$timestamp && echo "✔ Backed up ~/.zprofile"
 printDivider
     echo "✔ Touch ~/.bash_profile"
         touch ~/.bash_profile
@@ -343,8 +429,31 @@ printDivider
         echo "✔ Oh My Zsh already installed. Skipping"
     else
         echo "Installing Oh My Zsh..."
+        
+        # CRITICAL: Backup existing .zshrc before Oh My Zsh overwrites it
+        if [ -f ~/.zshrc ]; then
+            echo "⚠️  Backing up existing .zshrc to .zshrc.backup.$(date +%Y%m%d_%H%M%S)"
+            cp ~/.zshrc ~/.zshrc.backup.$(date +%Y%m%d_%H%M%S)
+        fi
+        
+        # Install Oh My Zsh
         sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
         echo "✔ Oh My Zsh installed"
+        
+        # Restore user content if backup exists
+        backup_file=$(ls -t ~/.zshrc.backup.* 2>/dev/null | head -n1)
+        if [ -n "$backup_file" ] && [ -f "$backup_file" ]; then
+            echo "🔧 Merging your previous .zshrc configuration..."
+            # Extract user's custom content (everything not Oh My Zsh related)
+            grep -v "^export ZSH=" "$backup_file" | \
+            grep -v "^ZSH_THEME=" | \
+            grep -v "^plugins=" | \
+            grep -v "source.*oh-my-zsh" | \
+            grep -v "^#.*Oh My Zsh" | \
+            grep -E "^[^#]|^$" >> ~/.zshrc
+            echo "✔ Your custom configurations have been preserved and merged"
+            echo "📁 Original backup saved as: $backup_file"
+        fi
     fi
 printDivider
     echo "Installing Oh My Zsh Plugins..."
@@ -404,15 +513,6 @@ printDivider
 #===============================================================================
 
 
-# Install xcode cli development tools
-printHeading "Installing xcode cli development tools"
-printDivider
-    xcode-select --install && \
-        read -n 1 -r -s -p $'\n\nWhen Xcode cli tools are installed, press ANY KEY to continue...\n\n' || \
-            printDivider && echo "✔ Xcode cli tools already installed. Skipping"
-printDivider
-
-
 # Install Brew
 printHeading "Installing Homebrew"
 printDivider
@@ -461,6 +561,9 @@ printHeading "Installing Enhanced CLI Utilities"
     printStep "tldr (simplified man)"       "brew install tldr"
     printStep "fzf (fuzzy finder)"          "brew install fzf"
     printStep "autojump"                    "brew install autojump"
+    printStep "tmux (terminal multiplexer)" "brew install tmux"
+    printStep "tmuxinator (tmux manager)"   "brew install tmuxinator"
+    printStep "vim (enhanced editor)"       "brew install vim"
 printDivider
 
 
@@ -505,15 +608,16 @@ printHeading "Installing Applications"
 
     if [[ -d "/Applications/Docker.app" ]]; then
         printDivider
-        printStep "Uninstall Docker desktop for Mac"              "brew uninstall --cask docker"
-        echo ""
+        echo "✔ Docker Desktop already installed. Skipping"
+    else
+        printStep "Docker Desktop"                 "brew install --cask docker"
     fi
 
     if [[ -d "/Applications/Rancher Desktop.app" ]]; then
             printDivider
-            echo "✔ Rancher already installed. Skipping"
+            echo "✔ Rancher Desktop already installed. Skipping"
     else
-        printStep "Rancher Desktop (Docker Desktop alternative)"              "brew install --cask rancher"
+        printStep "Rancher Desktop (Alternative)"  "brew install --cask rancher"
     fi
 
     if [[ -d "/Applications/Postman.app" ]]; then
@@ -575,20 +679,12 @@ printHeading "Installing Productivity Applications"
     printStep "Notion"                      "brew install --cask notion"
     printStep "Enpass (Password Manager)"   "brew install --cask enpass"
     printStep "Meld (Diff Tool)"            "brew install --cask meld"
-    printStep "Zoom"                        "brew install --cask zoom"
     printStep "Slack"                       "brew install --cask slack"
-    printStep "Todoist"                     "brew install --cask todoist"
     printStep "Gitify (GitHub Notifications)" "brew install --cask gitify"
     printStep "Atlassian Companion"         "brew install --cask atlassian-companion"
-printDivider
-
-
-# Install Additional Development Tools
-printHeading "Installing Additional Development Tools"
-    printStep "Bruno (Lightweight API Client)" "brew install --cask bruno"
-    printStep "Proxyman (HTTP Debugging)"   "brew install --cask proxyman"
-    printStep "Charles (HTTP Proxy)"        "brew install --cask charles"
-    printStep "Wireshark (Network Analysis)" "brew install --cask wireshark"
+    printStep "ChatGPT"                     "brew install --cask chatgpt"
+    printStep "Alfred 5"                    "brew install --cask alfred"
+    printStep "Logi Options+"               "brew install --cask logi-options-plus"
 printDivider
 
 
@@ -770,79 +866,8 @@ printDivider
         git config --global url."git@github.com:".insteadOf https://github.com/
         # you can remove this change by editing your ~/.gitconfig file
 printDivider
-    echo "✔ Creating .ssh directory in home folder [~/.ssh]"
-        mkdir -p ~/.ssh
-printDivider
     echo "✔ Adding github.com to known_hosts file [~/.ssh/known_hosts]"
         ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-printDivider
-
-
-# SSH Key Setup for GitHub
-printHeading "SSH Key Setup for GitHub"
-printDivider
-    if [ -f ~/.ssh/id_ed25519 ]; then
-        echo "✔ SSH key already exists at ~/.ssh/id_ed25519"
-        echo "✔ Your public key:"
-        cat ~/.ssh/id_ed25519.pub
-    else
-        echo "Generating SSH key for GitHub..."
-        # Use the Git email if available, otherwise prompt
-        if [ -n "$(git config --global user.email)" ]; then
-            ssh_email=$(git config --global user.email)
-            echo "✔ Using Git email: $ssh_email"
-        else
-            read -p 'Enter your email address for SSH key: ' ssh_email
-        fi
-        
-        # Generate SSH key
-        ssh-keygen -t ed25519 -C "$ssh_email" -f ~/.ssh/id_ed25519 -N ""
-        echo "✔ SSH key generated"
-    fi
-printDivider
-    echo "✔ Starting SSH agent and adding key..."
-    eval "$(ssh-agent -s)" > /dev/null 2>&1
-    
-    # Create SSH config if it doesn't exist
-    if [ ! -f ~/.ssh/config ]; then
-        echo "✔ Creating SSH config file..."
-        cat > ~/.ssh/config << EOF
-Host github.com
-  AddKeysToAgent yes
-  UseKeychain yes
-  IdentityFile ~/.ssh/id_ed25519
-EOF
-        echo "✔ SSH config created"
-    else
-        echo "✔ SSH config already exists"
-    fi
-printDivider
-    echo "✔ Adding SSH key to SSH agent..."
-    ssh-add --apple-use-keychain ~/.ssh/id_ed25519 > /dev/null 2>&1
-printDivider
-    echo "✔ Copying public key to clipboard..."
-    pbcopy < ~/.ssh/id_ed25519.pub
-    echo ""
-    tput setaf 3 # yellow
-    echo "🔑 IMPORTANT: Your SSH public key has been copied to clipboard!"
-    echo ""
-    echo "To complete GitHub setup:"
-    echo "1. Go to https://github.com/settings/ssh/new"
-    echo "2. Give your key a title (e.g., 'MacBook M3')"
-    echo "3. Paste the key (already in clipboard)"
-    echo "4. Click 'Add SSH key'"
-    echo ""
-    tput sgr0
-    read -n 1 -r -s -p "Press any key when you've added the key to GitHub..."
-    echo ""
-printDivider
-    echo "✔ Testing SSH connection to GitHub..."
-    if ssh -T git@github.com 2>&1 | grep -q "successfully authenticated"; then
-        echo "✔ SSH connection to GitHub successful!"
-    else
-        echo "⚠️  SSH connection test - if you just added the key, it may take a moment"
-        echo "   You can test later with: ssh -T git@github.com"
-    fi
 printDivider
 
 
@@ -971,9 +996,9 @@ echo ""
 echo "   • Run: p10k configure (to customize your prompt)"
 echo ""
 
-echo "3. ✅ SSH KEYS FOR GITHUB (AUTOMATED)"
-echo "   • SSH keys were generated and configured during setup"
-echo "   • If you skipped adding to GitHub, visit: https://github.com/settings/ssh/new"
+echo "3. ✅ SSH KEYS FOR GITHUB (COMPLETED EARLY)"
+echo "   • SSH keys were generated and configured at the beginning of setup"
+echo "   • GitHub authentication should already be working"
 echo "   • Test connection: ssh -T git@github.com"
 echo ""
 
