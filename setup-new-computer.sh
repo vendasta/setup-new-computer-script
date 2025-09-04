@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="v3.4.0"
+VERSION="v4.0.0"
 #===============================================================================
 # title           setup-new-computer.sh
 # author          Joel Kesler 
@@ -336,6 +336,69 @@ printDivider
 printDivider
 
 
+# Install Oh My Zsh
+printHeading "Installing Oh My Zsh and Plugins"
+printDivider
+    if [ -d "$HOME/.oh-my-zsh" ]; then
+        echo "✔ Oh My Zsh already installed. Skipping"
+    else
+        echo "Installing Oh My Zsh..."
+        sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+        echo "✔ Oh My Zsh installed"
+    fi
+printDivider
+    echo "Installing Oh My Zsh Plugins..."
+    # Install zsh-syntax-highlighting
+    if [ -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting" ]; then
+        echo "✔ zsh-syntax-highlighting already installed"
+    else
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+        echo "✔ zsh-syntax-highlighting installed"
+    fi
+    
+    # Install zsh-autosuggestions
+    if [ -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]; then
+        echo "✔ zsh-autosuggestions already installed"
+    else
+        git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+        echo "✔ zsh-autosuggestions installed"
+    fi
+    
+    # Install zsh-completions
+    if [ -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-completions" ]; then
+        echo "✔ zsh-completions already installed"
+    else
+        git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-completions
+        echo "✔ zsh-completions installed"
+    fi
+    
+    # Install history-search-multi-word
+    if [ -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/history-search-multi-word" ]; then
+        echo "✔ history-search-multi-word already installed"
+    else
+        git clone https://github.com/zdharma-continuum/history-search-multi-word ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/history-search-multi-word
+        echo "✔ history-search-multi-word installed"
+    fi
+printDivider
+    echo "Installing Powerlevel10k theme..."
+    # Install Powerlevel10k theme
+    if [ -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]; then
+        echo "✔ Powerlevel10k already installed"
+    else
+        git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
+        echo "✔ Powerlevel10k theme installed"
+    fi
+printDivider
+    echo "NOTE: To enable plugins, add them to your ~/.zshrc plugins list:"
+    echo "plugins=(git autojump zsh-autosuggestions zsh-syntax-highlighting zsh-completions fzf web-search sudo jsontools docker history-search-multi-word)"
+    echo ""
+    echo "To use Powerlevel10k theme, set in your ~/.zshrc:"
+    echo 'ZSH_THEME="powerlevel10k/powerlevel10k"'
+    echo ""
+    echo "Run 'p10k configure' after installation to customize your prompt"
+printDivider
+
+
 #===============================================================================
 #  Installer: Main Payload
 #===============================================================================
@@ -384,6 +447,22 @@ printHeading "Installing Brew Packages"
     printStep "Git"                         "brew install git"
 printDivider
 
+printHeading "Installing Enhanced CLI Utilities"
+    printStep "tree"                        "brew install tree"
+    printStep "htop"                        "brew install htop"
+    printStep "wget"                        "brew install wget"
+    printStep "jq (JSON processor)"         "brew install jq"
+    printStep "colordiff"                   "brew install colordiff"
+    printStep "GitHub CLI"                  "brew install gh"
+    printStep "bat (better cat)"            "brew install bat"
+    printStep "fd (better find)"            "brew install fd"
+    printStep "ripgrep (better grep)"       "brew install ripgrep"
+    printStep "exa (better ls)"             "brew install exa"
+    printStep "tldr (simplified man)"       "brew install tldr"
+    printStep "fzf (fuzzy finder)"          "brew install fzf"
+    printStep "autojump"                    "brew install autojump"
+printDivider
+
 
 
 # Install  Apps
@@ -401,6 +480,27 @@ printHeading "Installing Applications"
         echo "✔ Google Chrome already installed. Skipping"
     else
         printStep "Google Chrome"               "brew install --cask google-chrome"
+    fi
+
+    if [[ -d "/Applications/Chromium.app" ]]; then
+        printDivider
+        echo "✔ Chromium already installed. Skipping"
+    else
+        printStep "Chromium"                    "brew install --cask chromium"
+    fi
+
+    if [[ -d "/Applications/Firefox Developer Edition.app" ]]; then
+        printDivider
+        echo "✔ Firefox Developer Edition already installed. Skipping"
+    else
+        printStep "Firefox Developer Edition"   "brew install --cask firefox-developer-edition"
+    fi
+
+    if [[ -d "/Applications/Brave Browser.app" ]]; then
+        printDivider
+        echo "✔ Brave Browser already installed. Skipping"
+    else
+        printStep "Brave Browser"               "brew install --cask brave-browser"
     fi
 
     if [[ -d "/Applications/Docker.app" ]]; then
@@ -421,6 +521,13 @@ printHeading "Installing Applications"
         echo "✔ Postman already installed. Skipping"
     else
         printStep "Postman"                     "brew install --cask postman"
+    fi
+
+    if [[ -d "/Applications/Insomnia.app" ]]; then
+        printDivider
+        echo "✔ Insomnia already installed. Skipping"
+    else
+        printStep "Insomnia (Alternative API Client)" "brew install --cask insomnia"
     fi
 
     # Install Visual Studio Code
@@ -455,6 +562,33 @@ printHeading "Installing Applications"
     if [[ "${devtoolchoices[7]}" == "+" ]]; then
         printStep "Cursor"                  "brew install --cask cursor"
     fi
+printDivider
+
+
+# Install Productivity Applications
+printHeading "Installing Productivity Applications"
+    printStep "Rectangle (Window Manager)"  "brew install --cask rectangle"
+    printStep "Stats (System Monitor)"      "brew install --cask stats"
+    printStep "Itsycal (Menu Calendar)"     "brew install --cask itsycal"
+    printStep "HyperSwitch"                 "brew install --cask hyperswitch"
+    printStep "Calibre (Ebook Manager)"     "brew install --cask calibre"
+    printStep "Notion"                      "brew install --cask notion"
+    printStep "Enpass (Password Manager)"   "brew install --cask enpass"
+    printStep "Meld (Diff Tool)"            "brew install --cask meld"
+    printStep "Zoom"                        "brew install --cask zoom"
+    printStep "Slack"                       "brew install --cask slack"
+    printStep "Todoist"                     "brew install --cask todoist"
+    printStep "Gitify (GitHub Notifications)" "brew install --cask gitify"
+    printStep "Atlassian Companion"         "brew install --cask atlassian-companion"
+printDivider
+
+
+# Install Additional Development Tools
+printHeading "Installing Additional Development Tools"
+    printStep "Bruno (Lightweight API Client)" "brew install --cask bruno"
+    printStep "Proxyman (HTTP Debugging)"   "brew install --cask proxyman"
+    printStep "Charles (HTTP Proxy)"        "brew install --cask charles"
+    printStep "Wireshark (Network Analysis)" "brew install --cask wireshark"
 printDivider
 
 
@@ -497,6 +631,13 @@ printHeading "Installing Node and Angular CLI through NVM"
     printStep "Husky"                   "npm install --location=global husky"
     printStep "Node Sass"               "npm install --location=global sass"
     printStep "Node Gyp"                "npm install --location=global node-gyp"
+    printStep "Yarn"                    "npm install --location=global yarn"
+    printStep "pnpm"                    "npm install --location=global pnpm"
+    printStep "TypeScript"              "npm install --location=global typescript"
+    printStep "ts-node"                 "npm install --location=global ts-node"
+    printStep "ESLint"                  "npm install --location=global eslint"
+    printStep "Prettier"                "npm install --location=global prettier"
+    printStep "Nodemon"                 "npm install --location=global nodemon"
     printDivider
         echo "✔ Ensure ~/.config/husky directory exists"
             mkdir -p ~/.config/husky
@@ -630,49 +771,258 @@ printDivider
         # you can remove this change by editing your ~/.gitconfig file
 printDivider
     echo "✔ Creating .ssh directory in home folder [~/.ssh]"
-        mkdir -p ~/go
+        mkdir -p ~/.ssh
 printDivider
     echo "✔ Adding github.com to known_hosts file [~/.ssh/known_hosts]"
         ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 printDivider
 
 
+# SSH Key Setup for GitHub
+printHeading "SSH Key Setup for GitHub"
+printDivider
+    if [ -f ~/.ssh/id_ed25519 ]; then
+        echo "✔ SSH key already exists at ~/.ssh/id_ed25519"
+        echo "✔ Your public key:"
+        cat ~/.ssh/id_ed25519.pub
+    else
+        echo "Generating SSH key for GitHub..."
+        # Use the Git email if available, otherwise prompt
+        if [ -n "$(git config --global user.email)" ]; then
+            ssh_email=$(git config --global user.email)
+            echo "✔ Using Git email: $ssh_email"
+        else
+            read -p 'Enter your email address for SSH key: ' ssh_email
+        fi
+        
+        # Generate SSH key
+        ssh-keygen -t ed25519 -C "$ssh_email" -f ~/.ssh/id_ed25519 -N ""
+        echo "✔ SSH key generated"
+    fi
+printDivider
+    echo "✔ Starting SSH agent and adding key..."
+    eval "$(ssh-agent -s)" > /dev/null 2>&1
+    
+    # Create SSH config if it doesn't exist
+    if [ ! -f ~/.ssh/config ]; then
+        echo "✔ Creating SSH config file..."
+        cat > ~/.ssh/config << EOF
+Host github.com
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519
+EOF
+        echo "✔ SSH config created"
+    else
+        echo "✔ SSH config already exists"
+    fi
+printDivider
+    echo "✔ Adding SSH key to SSH agent..."
+    ssh-add --apple-use-keychain ~/.ssh/id_ed25519 > /dev/null 2>&1
+printDivider
+    echo "✔ Copying public key to clipboard..."
+    pbcopy < ~/.ssh/id_ed25519.pub
+    echo ""
+    tput setaf 3 # yellow
+    echo "🔑 IMPORTANT: Your SSH public key has been copied to clipboard!"
+    echo ""
+    echo "To complete GitHub setup:"
+    echo "1. Go to https://github.com/settings/ssh/new"
+    echo "2. Give your key a title (e.g., 'MacBook M3')"
+    echo "3. Paste the key (already in clipboard)"
+    echo "4. Click 'Add SSH key'"
+    echo ""
+    tput sgr0
+    read -n 1 -r -s -p "Press any key when you've added the key to GitHub..."
+    echo ""
+printDivider
+    echo "✔ Testing SSH connection to GitHub..."
+    if ssh -T git@github.com 2>&1 | grep -q "successfully authenticated"; then
+        echo "✔ SSH connection to GitHub successful!"
+    else
+        echo "⚠️  SSH connection test - if you just added the key, it may take a moment"
+        echo "   You can test later with: ssh -T git@github.com"
+    fi
+printDivider
+
+
+printHeading "Installing Git Enhancement Tools"
+    printStep "Git LFS"                     "brew install git-lfs"
+    printStep "tig (Git browser)"           "brew install tig"
+    printStep "lazygit (Git UI)"            "brew install lazygit"
+printDivider
+
+
+# Install Vendasta-specific Development Tools
+printHeading "Installing Vendasta Development Tools"
+printDivider
+    echo "Installing Go development tools..."
+    printStep "goimports"                   "go install golang.org/x/tools/cmd/goimports@latest"
+    printStep "golangci-lint"               "go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest"
+    printStep "air (live reloading)"        "go install github.com/cosmtrek/air@latest"
+    printStep "delve (debugger)"            "go install github.com/go-delve/delve/cmd/dlv@latest"
+    printStep "Vendasta CodeGen"            "go install github.com/vendasta/codegen@latest"
+printDivider
+    echo "✔ Go development tools installed"
+    echo "NOTE: For mscli setup, clone the repository and run 'go install -mod=vendor' manually"
+    echo "NOTE: For libpostal on M1 Macs, use --disable-sse2 flag during configure"
+printDivider
+
+
+# Install Python Development Tools
+printHeading "Installing Python Development Tools"
+    printStep "pyenv"                       "brew install pyenv"
+    printStep "Black (code formatter)"      "pipx install black"
+    printStep "isort (import sorter)"       "pipx install isort"
+    printStep "flake8 (linter)"             "pipx install flake8"
+    printStep "mypy (type checker)"         "pipx install mypy"
+    printStep "pipx (tool installer)"       "brew install pipx"
+printDivider
+
+
+# Install DevOps Tools
+printHeading "Installing DevOps and Infrastructure Tools"
+    printStep "Terraform"                   "brew install terraform"
+    printStep "Ansible"                     "brew install ansible"
+    printStep "Helm"                        "brew install helm"
+    printStep "k9s (Kubernetes UI)"         "brew install k9s"
+printDivider
+
+
+# Install Additional Programming Languages
+printHeading "Installing Additional Programming Languages"
+    printStep "Rust"                        "brew install rust"
+    printStep "OpenJDK (Java)"              "brew install openjdk"
+printDivider
+
+
+# Install Python Package Managers
+printHeading "Installing Python Package Managers"
+    printStep "Poetry"                      "brew install poetry"
+    printStep "Pipenv"                      "brew install pipenv"
+printDivider
+
+
+# Install Database Tools
+printHeading "Installing Database Tools"
+    printStep "PostgreSQL Client"          "brew install postgresql@16"
+    printStep "Redis"                       "brew install redis"
+    printStep "MongoDB Tools"               "brew install mongodb/brew/mongodb-community"
+printDivider
+
+
+# Install Database GUI Tools
+printHeading "Installing Database GUI Applications"
+    printStep "DBeaver (Universal DB GUI)" "brew install --cask dbeaver-community"
+    printStep "RedisInsight (Redis GUI)"    "brew install --cask redisinsight"
+    printStep "MongoDB Compass"             "brew install --cask mongodb-compass"
+    printStep "TablePlus (Premium DB GUI)" "brew install --cask tableplus"
+printDivider
+
+
+# Install Media and Document Processing Tools
+printHeading "Installing Media and Document Processing Tools"
+    printStep "FFmpeg"                      "brew install ffmpeg"
+    printStep "ImageMagick"                 "brew install imagemagick"
+    printStep "Pandoc"                      "brew install pandoc"
+printDivider
+
 
 #===============================================================================
 #  Installer: Complete
 #===============================================================================
 
-printHeading "Script Complete"
+printHeading "Setup Complete - Manual Steps Required"
 printDivider
 
 tput setaf 2 # set text color to green
 cat << "EOT"
 
    ╭─────────────────────────────────────────────────────────────────╮
-   │░░░░░░░░░░░░░░░░░░░░░░░░░░░ Next Steps ░░░░░░░░░░░░░░░░░░░░░░░░░░│
-   ├─────────────────────────────────────────────────────────────────┤
+   │░░░░░░░░░░░░░░░░░░░░░░░░░░░ IMPORTANT ░░░░░░░░░░░░░░░░░░░░░░░░░░░░│
    │                                                                 │
-   │   There are still a few steps you need to do to finish setup.   │
-   │                                                                 │
-   │        The link below has Post Installation Instructions        │
+   │          Please complete these manual steps below               │
    │                                                                 │
    └─────────────────────────────────────────────────────────────────┘
 
 EOT
 tput sgr0 # reset text
-echo "Link:"
+
+echo ""
+tput bold
+echo "🔧 REQUIRED MANUAL STEPS:"
+tput sgr0
+echo ""
+
+echo "1. 🔄 RESTART TERMINAL"
+echo "   • Close this terminal and open a new one"
+echo "   • This loads all new PATH configurations"
+echo ""
+
+echo "2. 🐚 CONFIGURE ZSH SHELL"
+echo "   • Edit ~/.zshrc and set theme:"
+echo "     ZSH_THEME=\"powerlevel10k/powerlevel10k\""
+echo ""
+echo "   • Add plugins to ~/.zshrc:"
+echo "     plugins=(git autojump zsh-autosuggestions zsh-syntax-highlighting"
+echo "              zsh-completions fzf web-search sudo jsontools docker"
+echo "              history-search-multi-word)"
+echo ""
+echo "   • Run: p10k configure (to customize your prompt)"
+echo ""
+
+echo "3. ✅ SSH KEYS FOR GITHUB (AUTOMATED)"
+echo "   • SSH keys were generated and configured during setup"
+echo "   • If you skipped adding to GitHub, visit: https://github.com/settings/ssh/new"
+echo "   • Test connection: ssh -T git@github.com"
+echo ""
+
+echo "4. ☕ CONFIGURE JAVA (if needed)"
+echo "   • Add to ~/.zprofile: export JAVA_HOME=\$(/usr/libexec/java_home)"
+echo "   • Restart terminal to apply"
+echo ""
+
+echo "5. ☁️ GOOGLE CLOUD AUTHENTICATION"
+echo "   • Run: gcloud auth application-default login"
+echo "   • Required for Vendasta E2E tests"
+echo ""
+
+echo "6. 🏢 VENDASTA-SPECIFIC SETUP"
+echo "   • Install libpostal (for Web-Crawler):"
+echo "     git clone https://github.com/openvenues/libpostal"
+echo "     cd libpostal && ./bootstrap.sh"
+echo "     ./configure --datadir=~/go/src/github.com/vendasta/libpostal_data --disable-sse2"
+echo "     make -j4 && sudo make install"
+echo ""
+echo "   • Setup mscli:"
+echo "     Clone repository and run 'go install -mod=vendor'"
+echo ""
+
+echo "7. ✅ VERIFY INSTALLATIONS"
+echo "   • node --version"
+echo "   • go version"
+echo "   • python3 --version"
+echo "   • git --version"
+echo ""
+
+tput setaf 3 # yellow text
+echo "📖 DOCUMENTATION LINK:"
+tput sgr0
 echo $README
 echo ""
-echo ""
-tput bold # bold text
-read -n 1 -r -s -p $'             Press any key to to open the link in a browser...\n\n'
+
+tput bold
+echo "Press any key to open documentation in browser..."
+tput sgr0
+read -n 1 -r -s
 open $README
-tput sgr0 # reset text
 
 echo ""
 echo ""
-echo "Please open a new terminal window to continue your setup steps"
-echo ""
+tput setaf 2
+echo "🎉 Setup script completed successfully!"
+echo "   Follow the manual steps above to finish your development environment setup."
+tput sgr0
 echo ""
 
 
