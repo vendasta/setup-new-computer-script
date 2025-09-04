@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="v4.4.1-CRITICAL-FIX"
+VERSION="v4.6.1"
 #===============================================================================
 # title           setup-new-computer.sh
 # author          Joel Kesler 
@@ -73,21 +73,38 @@ printStep() {
 }
 
 printLogo() {
-cat << "EOT"
-                      _           _        
-                     | |         | |       
- __   _____ _ __   __| | __ _ ___| |_ __ _ 
- \ \ / / _ \ '_ \ / _` |/ _` / __| __/ _` |
-  \ V /  __/ | | | (_| | (_| \__ \ || (_| |
-   \_/ \___|_| |_|\__,_|\__,_|___/\__\__,_|
- ------------------------------------------
-    Q U I C K   S E T U P   S C R I P T
-
-
-    NOTE:
-    You can exit the script at any time by
-    pressing CONTROL+C a bunch
-EOT
+    # Ask user for custom ASCII text
+    echo ""
+    read -p 'Enter custom text for ASCII logo (or press ENTER for "vendasta"): ' custom_text
+    
+    # Use default if no input
+    if [ -z "$custom_text" ]; then
+        custom_text="vendasta"
+    fi
+    
+    echo ""
+    
+    # Try to use figlet if available, otherwise fall back to simple text
+    if command -v figlet &> /dev/null; then
+        figlet -f standard "$custom_text"
+    else
+        # Fallback: Simple bordered text
+        text_length=${#custom_text}
+        border_length=$((text_length + 8))
+        
+        printf '%*s\n' "$border_length" | tr ' ' '='
+        echo "    $custom_text"
+        printf '%*s\n' "$border_length" | tr ' ' '='
+    fi
+    
+    echo ""
+    echo "    Q U I C K   S E T U P   S C R I P T"
+    echo ""
+    echo ""
+    echo "    NOTE:"
+    echo "    You can exit the script at any time by"
+    echo "    pressing CONTROL+C a bunch"
+    echo ""
 }
 
 showIDEMenuLoop() {
@@ -347,7 +364,22 @@ Host github.com
 EOF
         echo "✔ SSH config created"
     else
-        echo "✔ SSH config already exists"
+        echo "✔ SSH config already exists - preserving existing configuration"
+        # Check if GitHub host entry exists, if not add it safely
+        if ! grep -q "Host github.com" ~/.ssh/config; then
+            echo "✔ Adding GitHub SSH config to existing file..."
+            cat >> ~/.ssh/config << EOF
+
+# GitHub SSH configuration (added by setup script)
+Host github.com
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519
+EOF
+            echo "✔ GitHub SSH config appended to existing SSH config"
+        else
+            echo "✔ GitHub SSH config already exists in SSH config"
+        fi
     fi
 printDivider
     echo "✔ Adding SSH key to SSH agent..."
@@ -564,6 +596,59 @@ printHeading "Installing Enhanced CLI Utilities"
     printStep "tmux (terminal multiplexer)" "brew install tmux"
     printStep "tmuxinator (tmux manager)"   "brew install tmuxinator"
     printStep "vim (enhanced editor)"       "brew install vim"
+    printStep "figlet (ASCII art text)"     "brew install figlet"
+printDivider
+
+
+# Install logo-ls (modern ls with icons and Git integration)
+printHeading "Installing logo-ls (Enhanced ls with Icons)"
+printDivider
+    echo "Installing logo-ls using Go..."
+    if command -v go &> /dev/null; then
+        printStep "logo-ls (ls with VS Code icons)" "go install github.com/Yash-Handa/logo-ls@latest"
+        echo "✔ Setting up logo-ls aliases in shell profiles..."
+        
+        # Add aliases to bash profile if it exists
+        if [ -f ~/.bash_profile ]; then
+            if ! grep -q "logo-ls aliases" ~/.bash_profile; then
+                cat >> ~/.bash_profile << 'EOF'
+
+# logo-ls aliases (modern ls with icons and Git integration)
+alias ils='logo-ls'
+alias ila='logo-ls -A'
+alias ill='logo-ls -al'
+alias ilsg='logo-ls -D'    # with Git status
+alias ilag='logo-ls -AD'   # all files with Git status  
+alias illg='logo-ls -alD'  # long list with Git status
+EOF
+                echo "✔ Added logo-ls aliases to ~/.bash_profile"
+            fi
+        fi
+        
+        # Add aliases to zsh profile if it exists
+        if [ -f ~/.zprofile ]; then
+            if ! grep -q "logo-ls aliases" ~/.zprofile; then
+                cat >> ~/.zprofile << 'EOF'
+
+# logo-ls aliases (modern ls with icons and Git integration)
+alias ils='logo-ls'
+alias ila='logo-ls -A'
+alias ill='logo-ls -al'
+alias ilsg='logo-ls -D'    # with Git status
+alias ilag='logo-ls -AD'   # all files with Git status
+alias illg='logo-ls -alD'  # long list with Git status
+EOF
+                echo "✔ Added logo-ls aliases to ~/.zprofile"
+            fi
+        fi
+        
+        echo "✔ logo-ls installed successfully!"
+        echo "💡 Use 'ils', 'ila', 'ill' as enhanced ls commands with VS Code icons"
+        echo "💡 Use 'ilsg', 'ilag', 'illg' for Git-aware directory listings"
+    else
+        echo "⚠️  Go not found. logo-ls installation skipped."
+        echo "   logo-ls will be available after Go is installed and PATH is reloaded."
+    fi
 printDivider
 
 
