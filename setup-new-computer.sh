@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="v4.7.0"
+VERSION="v4.7.1"
 #===============================================================================
 # title           setup-new-computer.sh
 # author          Joel Kesler 
@@ -921,7 +921,6 @@ printDivider
     echo "Installing Go development tools..."
     printStep "goimports"                   "go install golang.org/x/tools/cmd/goimports@latest"
     printStep "golangci-lint"               "go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest"
-    printStep "air (live reloading)"        "go install github.com/cosmtrek/air@latest"
     printStep "delve (debugger)"            "go install github.com/go-delve/delve/cmd/dlv@latest"
     printStep "Vendasta CodeGen"            "go install github.com/vendasta/codegen@latest"
 printDivider
