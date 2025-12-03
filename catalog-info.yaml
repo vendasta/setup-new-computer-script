@@ -1,0 +1,17 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: setup-new-computer-script
+  description: A script to set up a new developer computer at Badal-IO.
+  annotations:
+    github.com/project-slug: badal-io/setup-new-computer-script
+    backstage.io/techdocs-ref: dir:./docs
+spec:
+  type: service
+  lifecycle: experimental
+  owner: guests
+  tags:
+    - shell
+    - developer-tools
+    - onboarding
+    - automation
