@@ -5,7 +5,7 @@ metadata:
   description: A script to set up a new developer computer at Badal-IO.
   annotations:
     github.com/project-slug: badal-io/setup-new-computer-script
-    backstage.io/techdocs-ref: dir:./docs
+    backstage.io/techdocs-ref: ./docs
 spec:
   type: service
   lifecycle: experimental
