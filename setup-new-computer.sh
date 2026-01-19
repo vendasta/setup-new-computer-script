@@ -382,6 +382,7 @@ printHeading "Installing Brew Packages"
     printStep "zsh-completions"             "brew install zsh-completions"
     printStep "Ruby"                        "brew install ruby"
     printStep "Git"                         "brew install git"
+    printStep "GitHub CLI"                  "brew install gh"
 printDivider
 
 
@@ -636,6 +637,34 @@ printDivider
         ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 printDivider
 
+
+# Install Vendasta MSCLI
+printHeading "Installing Vendasta MSCLI"
+    printDivider
+    printStep "MSCLI"                       "go install github.com/vendasta/mscli@latest"
+printDivider
+
+
+
+# Authenticate (deferred to end)
+printHeading "Authenticate Services"
+    printDivider
+    printStep "Google Cloud Login"          "gcloud auth login"
+    printDivider
+    printStep "Google Cloud ADC Login"      "gcloud auth application-default login"
+    printDivider
+    printStep "Google Cloud Docker Auth"    "gcloud auth configure-docker"
+    printDivider
+    printStep "Set Kubernetes Context"      "kubectl config set-context gke_repcore-prod_us-central1_vendasta-central"
+    printDivider
+    printStep "Get GKE Credentials"         "gcloud beta container clusters get-credentials vendasta-central --region us-central1 --project repcore-prod"
+    printDivider
+    printStep "Verify Google Cloud Auth"    "gcloud auth print-identity-token"
+    printDivider
+    printStep "MSCLI Login (Demo)"          "mscli auth login -e demo"
+    printDivider
+    printStep "MSCLI Login (Prod)"          "mscli auth login -e prod"
+printDivider
 
 
 #===============================================================================

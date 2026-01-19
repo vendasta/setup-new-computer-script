@@ -58,6 +58,27 @@ After you have run the script, please complete the following steps to finish set
    
    [nextsteps]: https://vendasta.jira.com/wiki/spaces/RD/pages/199032984/Onboarding+New+Developers#New-Dev%5BhardBreak%5DSetup-New-Developer%E2%80%99s-Computer-with-a-script
 
+3. **Google Cloud SDK authentication and Kubernetes context**\
+   The setup script runs these at the end. If you skipped them or need to re-run:
+   ```sh
+   gcloud auth login
+   gcloud auth application-default login
+   gcloud auth configure-docker
+   kubectl config set-context gke_repcore-prod_us-central1_vendasta-central
+   gcloud beta container clusters get-credentials vendasta-central --region us-central1 --project repcore-prod
+   gcloud auth print-identity-token
+   ```
+
+4. **Install MSCLI (Vendasta)**\
+   The setup script installs MSCLI and then prompts for auth at the end. If you skipped them or need to re-run:
+   ```sh
+   go install github.com/vendasta/mscli@latest
+   mscli auth login -e demo
+   mscli auth login -e prod
+   ```
+   See the MSCLI installation docs for more details:
+   - https://github.com/vendasta/mscli#installation-and-updating
+
 <br><br>
 
 
@@ -331,6 +352,16 @@ node-upgrade() {
    ```
 </details>
 
+<details>
+  <summary>MSCLI (Vendasta)</summary>
+
+```sh
+go install github.com/vendasta/mscli@latest
+mscli auth login -e demo
+mscli auth login -e prod
+```
+</details>
+
  
  
  ### Languages
@@ -415,6 +446,19 @@ gcloud components install app-engine-python --quiet
 gcloud components install app-engine-python-extras --quiet
 gcloud components install kubectl --quiet
 gcloud components install docker-credential-gcr --quiet
+```
+</details>
+
+<details>
+  <summary>Google Cloud authentication and Kubernetes context</summary>
+
+```sh
+gcloud auth login
+gcloud auth application-default login
+gcloud auth configure-docker
+kubectl config set-context gke_repcore-prod_us-central1_vendasta-central
+gcloud beta container clusters get-credentials vendasta-central --region us-central1 --project repcore-prod
+gcloud auth print-identity-token
 ```
 </details>
 
