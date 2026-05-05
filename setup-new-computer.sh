@@ -206,10 +206,15 @@ autoload -U +X bashcompinit && bashcompinit
 fpath=(/usr/local/share/zsh-completions \$fpath)
 
 # Google Cloud SDK
-[ -e "\$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc" ] && \
-    source "\$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
-[ -e "\$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc" ] && \
-    source "\$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+if [ -d "$(brew --prefix)/share/google-cloud-sdk" ]; then
+    # New Homebrew path for Google Cloud SDK
+    source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
+    source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
+elif [ -e "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc" ]; then
+    # Old homebrew path
+    source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+    source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+fi
 
 # Golang
 export GOPRIVATE="github.com/vendasta"
