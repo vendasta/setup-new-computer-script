@@ -655,9 +655,7 @@ printHeading "Authenticate Services"
     printDivider
     printStep "Google Cloud Docker Auth"    "gcloud auth configure-docker"
     printDivider
-    printStep "Set Kubernetes Context"      "kubectl config set-context gke_repcore-prod_us-central1_vendasta-central"
-    printDivider
-    printStep "Get GKE Credentials"         "gcloud beta container clusters get-credentials vendasta-central --region us-central1 --project repcore-prod"
+    printStep "Get Connect Gateway Credentials" "gcloud container fleet memberships get-credentials vendasta-central --project=repcore-prod"
     printDivider
     printStep "Verify Google Cloud Auth"    "gcloud auth print-identity-token"
     printDivider
