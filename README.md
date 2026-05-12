@@ -444,6 +444,7 @@ gcloud components install app-engine-go --quiet
 gcloud components install app-engine-python --quiet
 gcloud components install app-engine-python-extras --quiet
 gcloud components install kubectl --quiet
+gcloud components install gke-gcloud-auth-plugin --quiet
 gcloud components install docker-credential-gcr --quiet
 ```
 </details>

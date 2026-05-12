@@ -534,6 +534,7 @@ printHeading "Install Google Cloud SDK and Components"
     printStep "App Engine - Python"         "gcloud components install app-engine-python --quiet"
     printStep "App Engine - Python Extras"  "gcloud components install app-engine-python-extras --quiet"
     printStep "Kubectl"                     "gcloud components install kubectl --quiet"
+    printStep "GKE Auth Plugin"             "gcloud components install gke-gcloud-auth-plugin --quiet"
     printStep "Docker Credentials"          "gcloud components install docker-credential-gcr --quiet"
 printDivider
 
