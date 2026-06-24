@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="v3.4.0"
+VERSION="v3.5.0"
 #===============================================================================
 # title           setup-new-computer.sh
 # author          Joel Kesler 
@@ -37,6 +37,7 @@ options[4]="Webstorm";              devtoolchoices[4]=""
 options[5]="Sublime Text";          devtoolchoices[5]=""
 options[6]="iTerm2";                devtoolchoices[6]=""
 options[7]="Cursor";                devtoolchoices[7]=""
+options[8]="Claude Code";           devtoolchoices[8]=""
 
 
 #===============================================================================
@@ -301,6 +302,24 @@ done
 printDivider
 
 
+# Show Docker Alternative Selection Menu
+clear
+printLogo
+printHeading "Select Docker Desktop Alternative"
+printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+    echo ""
+    echo "  1) Colima (default - lightweight, CLI based)"
+    echo "  2) Rancher Desktop (GUI based)"
+    echo ""
+read -r -e -p "Type number to choose, or hit ENTER for the default [1]: " -n1 DOCKER_SELECTION
+case "$DOCKER_SELECTION" in
+    2) DOCKER_ALTERNATIVE="rancher" ;;
+    *) DOCKER_ALTERNATIVE="colima" ;;
+esac
+clear
+printDivider
+
+
 
 #===============================================================================
 #  Installer: Set up shell profiles
@@ -410,11 +429,20 @@ printHeading "Installing Applications"
         echo ""
     fi
 
-    if [[ -d "/Applications/Rancher Desktop.app" ]]; then
+    if [[ "$DOCKER_ALTERNATIVE" == "rancher" ]]; then
+        if [[ -d "/Applications/Rancher Desktop.app" ]]; then
             printDivider
             echo "✔ Rancher already installed. Skipping"
+        else
+            printStep "Rancher Desktop (Docker Desktop alternative)"              "brew install --cask rancher"
+        fi
     else
-        printStep "Rancher Desktop (Docker Desktop alternative)"              "brew install --cask rancher"
+        if command -v colima &>/dev/null; then
+            printDivider
+            echo "✔ Colima already installed. Skipping"
+        else
+            printStep "Colima (Docker Desktop alternative)"              "brew install colima docker"
+        fi
     fi
 
     if [[ -d "/Applications/Postman.app" ]]; then
@@ -455,6 +483,10 @@ printHeading "Installing Applications"
     # Install Cursor (AI-powered IDE)
     if [[ "${devtoolchoices[7]}" == "+" ]]; then
         printStep "Cursor"                  "brew install --cask cursor"
+    fi
+    # Install Claude Code (AI coding assistant)
+    if [[ "${devtoolchoices[8]}" == "+" ]]; then
+        printStep "Claude Code"             "brew install --cask claude-code"
     fi
 printDivider
 

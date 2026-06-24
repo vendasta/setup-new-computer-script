@@ -78,6 +78,16 @@ After you have run the script, please complete the following steps to finish set
    See the MSCLI installation docs for more details:
    - https://github.com/vendasta/mscli#installation-and-updating
 
+5. **Activate your JetBrains license** _(if you installed JetBrains Toolbox, PyCharm, GoLand, or WebStorm)_\
+   JetBrains IDEs require a license to use. Open the IDE and activate it against the Vendasta license server:
+   - Go to **Help → Register**
+   - Select **Activate New License**
+   - Select **License Server**
+   - Enter the server address: `https://vendasta.fls.jetbrains.com`
+   - Click **Activate**. This will fail, but it will give you a link to the **Authorization Procedure**.
+   - Click **Authorization Procedure** and complete the login to JetBrains Vault.
+   - Click **Activate** again.
+
 <br><br>
 
 
@@ -483,6 +493,15 @@ brew install --cask google-chrome
 
 
 <details>
+  <summary>Colima (Docker Desktop alternative - default)</summary>
+
+```sh
+brew install colima docker
+```
+</details>
+
+
+<details>
   <summary>Rancher Desktop (Docker Desktop alternative)</summary>
 
 ```sh
@@ -570,6 +589,15 @@ brew install --cask iterm2
   
 ```sh
 brew install --cask cursor
+```
+</details>
+
+
+<details>
+  <summary>Claude Code</summary>
+  
+```sh
+brew install --cask claude-code
 ```
 </details>
 
