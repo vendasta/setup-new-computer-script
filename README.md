@@ -81,12 +81,12 @@ ssh-add --apple-use-keychain ~/.ssh/id_ed25519
 
 <br>
 
-**`go install github.com/vendasta/mscli@latest` fails with `You're on a case-insensitive filesystem`**\
-One of mscli's dependency repos has branch names that differ only in case, which macOS can't store. Install from a clone instead, which uses mscli's vendored dependencies:
+**`You're on a case-insensitive filesystem, and the remote you are trying to fetch from has references that only differ in casing`**\
+A Github repo has two branches whose names differ only in case (for example `VSRE-2299` and `vsre-2299`), and macOS can't store both. Ask the repo's owners to delete one of them. Nothing needs cleaning up locally afterwards.
+
+To unblock yourself before then, convert the local repo named in the error to git's reftable format, which can store both, then retry. For a Go module, it's the `cache/vcs/…` directory after `in` in the error.
 ```sh
-git clone https://github.com/vendasta/mscli
-cd mscli
-go install -mod=vendor
+git -C <directory from the error> refs migrate --ref-format=reftable
 ```
 
 <br>
@@ -384,8 +384,7 @@ node-upgrade() {
   <summary>MSCLI (Vendasta)</summary>
 
 ```sh
-git clone --depth 1 https://github.com/vendasta/mscli /tmp/mscli
-go -C /tmp/mscli install -mod=vendor
+go install github.com/vendasta/mscli@latest
 mscli auth login -e demo
 mscli auth login -e prod
 ```

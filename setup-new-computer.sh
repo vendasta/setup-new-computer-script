@@ -684,10 +684,7 @@ printHeading "Installing Vendasta MSCLI"
         echo "✔ Adding Go binaries to PATH [~/go/bin]"
             export PATH=$PATH:$HOME/go/bin
     printDivider
-        # go install mscli@latest fails on macOS: a dependency repo has branch names that differ only in case
-        mscliSource="$(mktemp -d)/mscli"
-    printStep "MSCLI Source"                "git clone --depth 1 https://github.com/vendasta/mscli $mscliSource"
-    printStep "MSCLI"                       "go -C $mscliSource install -mod=vendor"
+    printStep "MSCLI"                       "go install github.com/vendasta/mscli@latest"
 printDivider
 
 
