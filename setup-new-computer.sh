@@ -405,6 +405,31 @@ printHeading "Installing Brew Packages"
 printDivider
 
 
+# Set up Github SSH
+printHeading "Set Up Github SSH"
+printDivider
+    echo "✔ Creating .ssh directory in home folder [~/.ssh]"
+        mkdir -p ~/.ssh
+printDivider
+    echo "✔ Adding github.com to known_hosts file [~/.ssh/known_hosts]"
+        ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+printDivider
+    if gh auth status --hostname github.com &>/dev/null; then
+        echo "✔ Already logged in to the GitHub CLI. Skipping"
+    else
+        echo "Logging in to Github. Choose to create and upload an SSH key when asked..."
+        gh auth login --hostname github.com --git-protocol ssh --web
+    fi
+printDivider
+    until ssh -T git@github.com 2>&1 | grep --quiet "successfully authenticated"; do
+        echo "✘ Github SSH authentication failed. In another terminal, run:"
+        echo "  gh auth login --hostname github.com --git-protocol ssh --web"
+        read -n 1 -r -s -p $'\nWhen your SSH key is added to Github, press ANY KEY to check again...\n\n'
+    done
+    echo "✔ Github SSH authentication works"
+printDivider
+
+
 
 # Install  Apps
 printHeading "Installing Applications"
@@ -662,19 +687,6 @@ printDivider
     echo "✔ Configure git to always ssh when dealing with https github repos"
         git config --global url."git@github.com:".insteadOf https://github.com/
         # you can remove this change by editing your ~/.gitconfig file
-printDivider
-    echo "✔ Creating .ssh directory in home folder [~/.ssh]"
-        mkdir -p ~/.ssh
-printDivider
-    echo "✔ Adding github.com to known_hosts file [~/.ssh/known_hosts]"
-        ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-printDivider
-    until ssh -T git@github.com 2>&1 | grep --quiet "successfully authenticated"; do
-        echo "✘ Github SSH authentication failed. Add an SSH key to your Github account:"
-        echo "  https://docs.github.com/en/authentication/connecting-to-github-with-ssh"
-        read -n 1 -r -s -p $'\nWhen your SSH key is added to Github, press ANY KEY to check again...\n\n'
-    done
-    echo "✔ Github SSH authentication works"
 printDivider
 
 

@@ -11,19 +11,6 @@ Looking to use this script at your own company? Check out the [tips for using th
 
 <br>
 
-## Before You Run the Script
-
-**Github Command-line SSH Authentication**\
-The script configures Git to use SSH for Github urls and installs Vendasta tools from private Github repos, so you need an SSH key on your Github account before it reaches that step. The script checks your SSH access and waits until it works.
-- [Generate an SSH key for your new computer][generate key]
-- [Add the SSH public key to your Github account][add to github]
-- Check it works: `ssh -T git@github.com` should print `You've successfully authenticated`
-
-[generate key]: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
-[add to github]: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
-
-<br>
-
 ## Quick Install Instructions
 
 Paste the command below in a Mac OS Terminal:
@@ -45,6 +32,7 @@ Paste the command below in a Mac OS Terminal:
    ```
 
 * Some installs will need your password
+* The script logs you in to Github in your browser with the GitHub CLI. When asked, choose to create and upload an SSH key: the script needs it to install Vendasta tools from private repos
 * You will be prompted to fill out your git email and name. Use the email and name you use for Github
 
 
@@ -70,7 +58,11 @@ The script finishes everything except:
 ## Common Issues
 
 **The script keeps saying `Github SSH authentication failed`**\
-Your SSH key isn't on your Github account or isn't loaded. Follow [Before You Run the Script](#before-you-run-the-script), then check that this prints `You've successfully authenticated`:
+Your SSH key isn't on your Github account or isn't loaded. In another terminal, log in again and choose to create and upload an SSH key:
+```sh
+gh auth login --hostname github.com --git-protocol ssh --web
+```
+Then check that this prints `You've successfully authenticated`:
 ```sh
 ssh -T git@github.com
 ```
