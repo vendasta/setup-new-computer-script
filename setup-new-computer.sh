@@ -664,17 +664,30 @@ printDivider
         # you can remove this change by editing your ~/.gitconfig file
 printDivider
     echo "✔ Creating .ssh directory in home folder [~/.ssh]"
-        mkdir -p ~/go
+        mkdir -p ~/.ssh
 printDivider
     echo "✔ Adding github.com to known_hosts file [~/.ssh/known_hosts]"
         ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+printDivider
+    until ssh -T git@github.com 2>&1 | grep --quiet "successfully authenticated"; do
+        echo "✘ Github SSH authentication failed. Add an SSH key to your Github account:"
+        echo "  https://docs.github.com/en/authentication/connecting-to-github-with-ssh"
+        read -n 1 -r -s -p $'\nWhen your SSH key is added to Github, press ANY KEY to check again...\n\n'
+    done
+    echo "✔ Github SSH authentication works"
 printDivider
 
 
 # Install Vendasta MSCLI
 printHeading "Installing Vendasta MSCLI"
     printDivider
-    printStep "MSCLI"                       "go install github.com/vendasta/mscli@latest"
+        echo "✔ Adding Go binaries to PATH [~/go/bin]"
+            export PATH=$PATH:$HOME/go/bin
+    printDivider
+        # go install mscli@latest fails on macOS: a dependency repo has branch names that differ only in case
+        mscliSource="$(mktemp -d)/mscli"
+    printStep "MSCLI Source"                "git clone --depth 1 https://github.com/vendasta/mscli $mscliSource"
+    printStep "MSCLI"                       "go -C $mscliSource install -mod=vendor"
 printDivider
 
 

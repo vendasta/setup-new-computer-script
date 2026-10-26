@@ -11,6 +11,19 @@ Looking to use this script at your own company? Check out the [tips for using th
 
 <br>
 
+## Before You Run the Script
+
+**Github Command-line SSH Authentication**\
+The script configures Git to use SSH for Github urls and installs Vendasta tools from private Github repos, so you need an SSH key on your Github account before it reaches that step. The script checks your SSH access and waits until it works.
+- [Generate an SSH key for your new computer][generate key]
+- [Add the SSH public key to your Github account][add to github]
+- Check it works: `ssh -T git@github.com` should print `You've successfully authenticated`
+
+[generate key]: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+[add to github]: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
+
+<br>
+
 ## Quick Install Instructions
 
 Paste the command below in a Mac OS Terminal:
@@ -42,23 +55,13 @@ Paste the command below in a Mac OS Terminal:
 After you have run the script, please complete the following steps to finish setting up your computers:
 
    
-1. **Github Command-line SSH Authentication**\
-   Git is now configured to use SSH by default for github urls. You will need to generate and add an SSH key to your Github account or you will run into errors. Do the following to authorize Github on your computer:
-   - [Generate an SSH key for your new computer][generate key]
-   - [Add the SSH public key to your Github account][add to github]
-     
-   [generate key]: https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
-   [add to github]: https://help.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account
-   
-   <br>
-
-2. **Vendasta specific tools**\
+1. **Vendasta specific tools**\
    Follow our onboarding document to complete your setup:
    - [Onboarding New Developers - Setup New Developer’s Computer - Next Steps][nextsteps]
    
    [nextsteps]: https://vendasta.jira.com/wiki/spaces/RD/pages/199032984/Onboarding+New+Developers#New-Dev%5BhardBreak%5DSetup-New-Developer%E2%80%99s-Computer-with-a-script
 
-3. **Google Cloud SDK authentication and Kubernetes context**\
+2. **Google Cloud SDK authentication and Kubernetes context**\
    The setup script runs these at the end. If you skipped them or need to re-run:
    ```sh
    gcloud auth login
@@ -68,17 +71,19 @@ After you have run the script, please complete the following steps to finish set
    gcloud auth print-identity-token
    ```
 
-4. **Install MSCLI (Vendasta)**\
+3. **Install MSCLI (Vendasta)**\
    The setup script installs MSCLI and then prompts for auth at the end. If you skipped them or need to re-run:
    ```sh
-   go install github.com/vendasta/mscli@latest
+   git clone https://github.com/vendasta/mscli
+   cd mscli
+   go install -mod=vendor
    mscli auth login -e demo
    mscli auth login -e prod
    ```
    See the MSCLI installation docs for more details:
    - https://github.com/vendasta/mscli#installation-and-updating
 
-5. **Activate your JetBrains license** _(if you installed JetBrains Toolbox, PyCharm, GoLand, or WebStorm)_\
+4. **Activate your JetBrains license** _(if you installed JetBrains Toolbox, PyCharm, GoLand, or WebStorm)_\
    JetBrains IDEs require a license to use. Open the IDE and activate it against the Vendasta license server:
    - Go to **Help → Register**
    - Select **Activate New License**
@@ -365,7 +370,8 @@ node-upgrade() {
   <summary>MSCLI (Vendasta)</summary>
 
 ```sh
-go install github.com/vendasta/mscli@latest
+git clone --depth 1 https://github.com/vendasta/mscli /tmp/mscli
+go -C /tmp/mscli install -mod=vendor
 mscli auth login -e demo
 mscli auth login -e prod
 ```
