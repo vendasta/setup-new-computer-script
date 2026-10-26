@@ -22,8 +22,8 @@ VERSION="v3.5.0"
 #   4. You will be promted to fill out your git email and name. 
 #      Use the email and name you use for Github
 #
-#   5. Follow the Post Installation Instructions in the Readme:
-README="https://github.com/vendasta/setup-new-computer-script#post-installation-instructions"
+#   5. Follow the Next Steps in the Readme:
+README="https://github.com/vendasta/setup-new-computer-script#next-steps"
 #  
 #===============================================================================
 
@@ -727,7 +727,7 @@ cat << "EOT"
    │                                                                 │
    │   There are still a few steps you need to do to finish setup.   │
    │                                                                 │
-   │        The link below has Post Installation Instructions        │
+   │    The link below has the remaining steps and common issues     │
    │                                                                 │
    └─────────────────────────────────────────────────────────────────┘
 
