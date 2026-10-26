@@ -414,6 +414,11 @@ printDivider
     echo "✔ Adding github.com to known_hosts file [~/.ssh/known_hosts]"
         ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 printDivider
+    if ! grep --quiet "UseKeychain" ~/.ssh/config 2>/dev/null; then
+        echo "✔ Keeping SSH key passphrases in the Keychain [~/.ssh/config]"
+        printf 'Host github.com\n  AddKeysToAgent yes\n  UseKeychain yes\n' >> ~/.ssh/config
+    fi
+printDivider
     if gh auth status --hostname github.com &>/dev/null; then
         echo "✔ Already logged in to the GitHub CLI. Skipping"
     else
