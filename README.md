@@ -71,19 +71,7 @@ After you have run the script, please complete the following steps to finish set
    gcloud auth print-identity-token
    ```
 
-3. **Install MSCLI (Vendasta)**\
-   The setup script installs MSCLI and then prompts for auth at the end. If you skipped them or need to re-run:
-   ```sh
-   git clone https://github.com/vendasta/mscli
-   cd mscli
-   go install -mod=vendor
-   mscli auth login -e demo
-   mscli auth login -e prod
-   ```
-   See the MSCLI installation docs for more details:
-   - https://github.com/vendasta/mscli#installation-and-updating
-
-4. **Activate your JetBrains license** _(if you installed JetBrains Toolbox, PyCharm, GoLand, or WebStorm)_\
+3. **Activate your JetBrains license** _(if you installed JetBrains Toolbox, PyCharm, GoLand, or WebStorm)_\
    JetBrains IDEs require a license to use. Open the IDE and activate it against the Vendasta license server:
    - Go to **Help → Register**
    - Select **Activate New License**
