@@ -32,53 +32,17 @@ Paste the command below in a Mac OS Terminal:
    ```
 
 * Some installs will need your password
+* The script logs you in to Github in your browser with the GitHub CLI. When asked, choose to create and upload an SSH key: the script needs it to install Vendasta tools from private repos
 * You will be prompted to fill out your git email and name. Use the email and name you use for Github
 
 
 <br><br>
 
 
-## Post Installation Instructions
-After you have run the script, please complete the following steps to finish setting up your computers:
+## Next Steps
+The script finishes everything except:
 
-   
-1. **Github Command-line SSH Authentication**\
-   Git is now configured to use SSH by default for github urls. You will need to generate and add an SSH key to your Github account or you will run into errors. Do the following to authorize Github on your computer:
-   - [Generate an SSH key for your new computer][generate key]
-   - [Add the SSH public key to your Github account][add to github]
-     
-   [generate key]: https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
-   [add to github]: https://help.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account
-   
-   <br>
-
-2. **Vendasta specific tools**\
-   Follow our onboarding document to complete your setup:
-   - [Onboarding New Developers - Setup New Developer’s Computer - Next Steps][nextsteps]
-   
-   [nextsteps]: https://vendasta.jira.com/wiki/spaces/RD/pages/199032984/Onboarding+New+Developers#New-Dev%5BhardBreak%5DSetup-New-Developer%E2%80%99s-Computer-with-a-script
-
-3. **Google Cloud SDK authentication and Kubernetes context**\
-   The setup script runs these at the end. If you skipped them or need to re-run:
-   ```sh
-   gcloud auth login
-   gcloud auth application-default login
-   gcloud auth configure-docker
-   gcloud container fleet memberships get-credentials vendasta-central --project=repcore-prod
-   gcloud auth print-identity-token
-   ```
-
-4. **Install MSCLI (Vendasta)**\
-   The setup script installs MSCLI and then prompts for auth at the end. If you skipped them or need to re-run:
-   ```sh
-   go install github.com/vendasta/mscli@latest
-   mscli auth login -e demo
-   mscli auth login -e prod
-   ```
-   See the MSCLI installation docs for more details:
-   - https://github.com/vendasta/mscli#installation-and-updating
-
-5. **Activate your JetBrains license** _(if you installed JetBrains Toolbox, PyCharm, GoLand, or WebStorm)_\
+1. **Activate your JetBrains license** _(if you installed JetBrains Toolbox, PyCharm, GoLand, or WebStorm)_\
    JetBrains IDEs require a license to use. Open the IDE and activate it against the Vendasta license server:
    - Go to **Help → Register**
    - Select **Activate New License**
@@ -91,9 +55,53 @@ After you have run the script, please complete the following steps to finish set
 <br><br>
 
 
-## Post Installation Tips
+## Common Issues
 
-**Fix ZSH Errors**\
+**The script keeps saying `Github SSH authentication failed`**\
+Your SSH key isn't on your Github account or isn't loaded. In another terminal, log in again and choose to create and upload an SSH key:
+```sh
+gh auth login --hostname github.com --git-protocol ssh --web
+```
+Then check that this prints `You've successfully authenticated`:
+```sh
+ssh -T git@github.com
+```
+If it prints `Permission denied (publickey)`, load your key into the SSH agent:
+```sh
+ssh-add --apple-use-keychain ~/.ssh/id_ed25519
+```
+
+<br>
+
+**`You're on a case-insensitive filesystem, and the remote you are trying to fetch from has references that only differ in casing`**\
+A Github repo has two branches whose names differ only in case (for example `VSRE-2299` and `vsre-2299`), and macOS can't store both. Ask the repo's owners to delete one of them. Nothing needs cleaning up locally afterwards.
+
+To unblock yourself before then, convert the local repo named in the error to git's reftable format, which can store both, then retry. For a Go module, it's the `cache/vcs/…` directory after `in` in the error.
+```sh
+git -C <directory from the error> refs migrate --ref-format=reftable
+```
+
+<br>
+
+**`mscli: command not found`**\
+`mscli` is installed to `~/go/bin`, which your shell profile adds to your PATH. Open a new terminal window.
+
+<br>
+
+**A Google Cloud or MSCLI login failed or was closed during the script**\
+Run the logins again:
+```sh
+gcloud auth login
+gcloud auth application-default login
+gcloud auth configure-docker
+gcloud container fleet memberships get-credentials vendasta-central --project=repcore-prod
+mscli auth login -e demo
+mscli auth login -e prod
+```
+
+<br>
+
+**`zsh compinit: insecure directories`**\
 If you are using ZSH as your shell (default in newer Mac OS versions) you may get this error after running the setup script:
  
 > zsh compinit: insecure directories, run compaudit for list.\
@@ -104,7 +112,10 @@ You can fix this by running the following command in your terminal:
 compaudit | xargs chmod g-w
 ```
 
-<br>
+<br><br>
+
+
+## Tips
 
 **Setting Up Pycharm with Python 2.7**\
 As Mac OS has recently removed the bundled copy of Python 2.7, please see [this help document on working with our Legacy Appengine projects](https://vendasta.jira.com/wiki/spaces/RD/pages/1688469847/Pycharm+Setup+for+Legacy+Appengine+Python+2.7)

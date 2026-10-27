@@ -22,8 +22,8 @@ VERSION="v3.5.0"
 #   4. You will be promted to fill out your git email and name. 
 #      Use the email and name you use for Github
 #
-#   5. Follow the Post Installation Instructions in the Readme:
-README="https://github.com/vendasta/setup-new-computer-script#post-installation-instructions"
+#   5. Follow the Next Steps in the Readme:
+README="https://github.com/vendasta/setup-new-computer-script#next-steps"
 #  
 #===============================================================================
 
@@ -405,6 +405,36 @@ printHeading "Installing Brew Packages"
 printDivider
 
 
+# Set up Github SSH
+printHeading "Set Up Github SSH"
+printDivider
+    echo "✔ Creating .ssh directory in home folder [~/.ssh]"
+        mkdir -p ~/.ssh
+printDivider
+    echo "✔ Adding github.com to known_hosts file [~/.ssh/known_hosts]"
+        ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+printDivider
+    if ! grep --quiet "UseKeychain" ~/.ssh/config 2>/dev/null; then
+        echo "✔ Keeping SSH key passphrases in the Keychain [~/.ssh/config]"
+        printf 'Host github.com\n  AddKeysToAgent yes\n  UseKeychain yes\n' >> ~/.ssh/config
+    fi
+printDivider
+    if gh auth status --hostname github.com &>/dev/null; then
+        echo "✔ Already logged in to the GitHub CLI. Skipping"
+    else
+        echo "Logging in to Github. Choose to create and upload an SSH key when asked..."
+        gh auth login --hostname github.com --git-protocol ssh --web
+    fi
+printDivider
+    until ssh -T git@github.com 2>&1 | grep --quiet "successfully authenticated"; do
+        echo "✘ Github SSH authentication failed. In another terminal, run:"
+        echo "  gh auth login --hostname github.com --git-protocol ssh --web"
+        read -n 1 -r -s -p $'\nWhen your SSH key is added to Github, press ANY KEY to check again...\n\n'
+    done
+    echo "✔ Github SSH authentication works"
+printDivider
+
+
 
 # Install  Apps
 printHeading "Installing Applications"
@@ -663,16 +693,13 @@ printDivider
         git config --global url."git@github.com:".insteadOf https://github.com/
         # you can remove this change by editing your ~/.gitconfig file
 printDivider
-    echo "✔ Creating .ssh directory in home folder [~/.ssh]"
-        mkdir -p ~/go
-printDivider
-    echo "✔ Adding github.com to known_hosts file [~/.ssh/known_hosts]"
-        ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-printDivider
 
 
 # Install Vendasta MSCLI
 printHeading "Installing Vendasta MSCLI"
+    printDivider
+        echo "✔ Adding Go binaries to PATH [~/go/bin]"
+            export PATH=$PATH:$HOME/go/bin
     printDivider
     printStep "MSCLI"                       "go install github.com/vendasta/mscli@latest"
 printDivider
@@ -714,7 +741,7 @@ cat << "EOT"
    │                                                                 │
    │   There are still a few steps you need to do to finish setup.   │
    │                                                                 │
-   │        The link below has Post Installation Instructions        │
+   │    The link below has the remaining steps and common issues     │
    │                                                                 │
    └─────────────────────────────────────────────────────────────────┘
 
